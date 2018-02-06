@@ -3,9 +3,10 @@ The System Design Project is a Semester 2 module and is a group project involvin
 
 The main features include the games it has to play games, fitness (sound, music, light), memory, companionship (sensor on head or emotion detection using camera, random sounds at times)
 
-Sensors - 2-4 buttons, microphone, ultrasonic for table, gyrosonic, camera. 
+Sensors - 2-4 buttons, microphone, ultrasonic for table, gyrosonic, camera.
 
-Actuators - 6 motors for arms and legs, LEDs, Speakers. 
+Actuators - 6 motors for arms and legs, LEDs, Speakers.
 
 Features good to have - Table awareness, facing the user, speech recognition.
 
+Changes
