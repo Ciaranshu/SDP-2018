@@ -21,14 +21,14 @@ import java.util.UUID;
 public class MainActivity extends AppCompatActivity {
 
 //    private OutputStream outputStream;
-//    private InputStream inStream;
+    private InputStream inStream;
     private BluetoothServerSocket mmServerSocket;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        AcceptThread();
+
     }
     public void StartGameOne(View view) {
 //        try {
@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 //        }catch (IOException s){
 //            Log.e("Error: ", s.toString());
 //        }
+        AcceptThread();
     }
 
     public void AcceptThread(){
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         UUID uuid = UUID.fromString("94f39d29-7d6d-437d-973b-fba39e49d4ee");
         try{
             temp = blueAdapter.listenUsingRfcommWithServiceRecord("MyApp", uuid);
+            Log.e("UUID: ", uuid.toString());
         } catch (IOException s){
             Log.e("ERROR: ", s.toString());
         }
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         // Keep listening until exception occurs or a socket is returned.
         while (true) {
             try {
+                Log.e("SOMETHING: ","Now accepting something");
                 socket = mmServerSocket.accept();
             } catch (IOException e) {
                 Log.e("ERROR2", "Socket's accept() method failed", e);
@@ -61,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             if (socket != null) {
+                run();
+
                 // A connection was accepted. Perform work associated with
                 // the connection in a separate thread.
                 try {
@@ -115,18 +120,19 @@ public class MainActivity extends AppCompatActivity {
 //        outputStream.write(s.getBytes());
 //    }
 //
-//    public void run() {
-//        final int BUFFER_SIZE = 1024;
-//        byte[] buffer = new byte[BUFFER_SIZE];
-//        int bytes = 0;
-//        int b = BUFFER_SIZE;
-//
-//        while (true) {
-//            try {
-//                bytes = inStream.read(buffer, bytes, BUFFER_SIZE - bytes);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
+    public void run() {
+        final int BUFFER_SIZE = 1024;
+        byte[] buffer = new byte[BUFFER_SIZE];
+        int bytes = 0;
+        int b = BUFFER_SIZE;
+
+        while (true) {
+            try {
+                bytes = inStream.read(buffer, bytes, BUFFER_SIZE - bytes);
+                Log.e("INSTREAM: ", "" + bytes);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
