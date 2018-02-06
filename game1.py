@@ -2,11 +2,17 @@ import ev3dev.ev3 as ev3
 import sys
 from time import sleep
 
+"""
+Function that sets all the motors to the position they initially were in.
+Input - a list of motors to be reset
+Returns - nothing
+"""
 def resetMotors(motors):
     while True:
         if len(motors) == 0:
             break
         toRemove = []
+        # Loop through the motors and adjust their position.
         for i,motor in enumerate(motors):
             if motor.position > 0:
                 motor.run_forever(speed_sp = -100)
@@ -28,6 +34,7 @@ def resetMotors(motors):
                 toRemove.append(motor)
                 motor.stop(stop_action="hold")
                 continue
+        # Remove all the motors which are in the right position already.
         for mot in toRemove:
             motors.remove(mot)
 
@@ -50,7 +57,7 @@ saidLetsPlayGame = 0
 touch1 = 0
 touch2 = 0
 touch3 = 0
-move = int(sys.argv[1])    # Number of moves completed 
+move = int(sys.argv[1])    # Number of move to execute, given by the app 
 
 rShoulderReset = 0
 lShoulderReset = 0
@@ -63,12 +70,21 @@ while True:
    pLS = lShoulder.position # Position of Left Shoulder
    pLE = lElbow.position    # Position of Left Elbow
    
-   # Play a simple Game 
+   """
+   At this point, move = 0 does the following sequence of moves:
+   1. The Robot says "Let's play a game"
+   2. The Robot raises both its arms
+   3. The Robot waits the player to hit both its hands.
+   4. The Robot lowers its arms
+   5. The Robot says "Well done!"
+   """
+   # Action 1.
    if (move == 0):
       if(saidLetsPlayGame == 0):
          ev3.Sound.speak("Let's play a game!")
          sleep(1.5)
          saidLetsPlayGame = 1
+      # Action 2.
       rShoulder.run_forever(speed_sp =300) # rShoulder Motor Positive goes Up
       lShoulder.run_forever(speed_sp =-300)# LShoulder Motor Positive goes Down
      # rElbow.run_forever(speed_sp =-100)
@@ -79,15 +95,18 @@ while True:
          rShoulder.stop(stop_action="hold")
          lShoulder.stop(stop_action="hold")
          move = 0.5
-   if (move == 0.5):          
+  # Action 3. 
+  if (move == 0.5):          
       touch1 = touch1 + rTouch.value()
       touch2 = touch2 + lTouch.value()
       print("WAIT FOR TOUCH 1: ",touch1)
       if (touch1>0 and touch2 > 0):
+         # Action 4.
          rShoulder.run_forever(speed_sp =-300)
          lShoulder.run_forever(speed_sp =+300)
          print ("2-RIGHT-SHOULDER-DOWN: ",pRS)
          if (pRS<200 and pLS > -200):
+            # Action 5.
             rShoulder.stop(stop_action="hold")
             lShoulder.stop(stop_action="hold")
             ev3.Sound.speak('Well Done!')
@@ -135,8 +154,9 @@ while True:
          break
      
 
-print("Exited the loop. Program terminated")
+print("Exited the loop")
 resetMotors([rShoulder,lShoulder,lElbow, rElbow])
+print("Exited the reset function.Program terminated")
 
 #if not (rShoulder.connected):
 #    print ("Plug the right shoulder motor into port C")
