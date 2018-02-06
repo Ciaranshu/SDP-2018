@@ -64,11 +64,12 @@ public class MainActivity extends AppCompatActivity {
             }
 
             if (socket != null) {
-                run();
 
                 // A connection was accepted. Perform work associated with
                 // the connection in a separate thread.
                 try {
+                    inStream = socket.getInputStream();
+                    run();
                     mmServerSocket.close();
                     break;
                 }catch (IOException io){
@@ -130,8 +131,11 @@ public class MainActivity extends AppCompatActivity {
             try {
                 bytes = inStream.read(buffer, bytes, BUFFER_SIZE - bytes);
                 Log.e("INSTREAM: ", "" + bytes);
+                Thread.sleep(20000);
             } catch (IOException e) {
                 e.printStackTrace();
+            } catch (InterruptedException ie){
+                ie.printStackTrace();
             }
         }
     }
