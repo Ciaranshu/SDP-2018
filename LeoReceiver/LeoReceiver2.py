@@ -7,11 +7,17 @@
 # $Id: rfcomm-client.py 424 2006-08-24 03:35:54Z albert $
 
 from bluetooth import *
+from time import *
 import sys
+
+fsock = open('out.txt', 'w')
+sys.stdout = sys.stderr = fsock
+print("standard output")
 
 # search for the SampleServer service
 uuid = "94f39d29-7d6d-437d-973b-fba39e49d4ee"
 service_matches = find_service( uuid = uuid, address = "E8:3A:12:DE:55:51" )
+service_matches = find_service( uuid = uuid, address = "F0:43:47:51:71:B1" )
 
 first_match = service_matches[0]
 port = first_match["port"]
@@ -22,10 +28,23 @@ print("connecting to \"%s\" on %s" % (name, host))
 
 # Create the client socket
 sock=BluetoothSocket( RFCOMM )
+sock.listen(1)
 sock.connect((host, port))
+#print("connected.  type stuff")
+#sock.send(bytes('Hello Andorid', 'UTF-8'))
+sleep(100)
+try:
+    print("receiving")
+    while True:
+        data = sock.recv(3)
+        print("received [%s]" % data.decode('utf-8'))
+        if len(data) != 0:
+            print("received [%s]" % data.decode('utf-8'))
+            sock.close()
+            exit()
 
-print("connected.  type stuff")
-sock.send(69)
+except IOError:
+    pass
 
 sock.close()
 
@@ -138,3 +157,4 @@ sock.close()
 #
 # s.close()
 # '''
+

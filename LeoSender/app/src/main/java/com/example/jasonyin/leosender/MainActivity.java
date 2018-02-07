@@ -20,7 +20,7 @@ import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
 
-//    private OutputStream outputStream;
+    private OutputStream outputStream;
     private InputStream inStream;
     private BluetoothServerSocket mmServerSocket;
 
@@ -69,7 +69,10 @@ public class MainActivity extends AppCompatActivity {
                 // the connection in a separate thread.
                 try {
                     inStream = socket.getInputStream();
+                    outputStream = socket.getOutputStream();
                     run();
+                    Log.e("ERROR3: ", "Boom");
+                    socket.close();
                     mmServerSocket.close();
                     break;
                 }catch (IOException io){
@@ -122,21 +125,32 @@ public class MainActivity extends AppCompatActivity {
 //    }
 //
     public void run() {
+        String out = "Hello EV3";
+        byte[] build = out.getBytes();
         final int BUFFER_SIZE = 1024;
         byte[] buffer = new byte[BUFFER_SIZE];
         int bytes = 0;
         int b = BUFFER_SIZE;
+        /*try {
+            Thread.sleep(30000);
+            outputStream.write(build);
+            outputStream.close();
+           Log.e("OUTPUTSTREAM: ", "" + out);
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }catch (InterruptedException ie) {
+            ie.printStackTrace();
+        }*/
         while (true) {
             try {
                 bytes = inStream.read(buffer, bytes, BUFFER_SIZE - bytes);
                 Log.e("INSTREAM: ", "" + bytes);
-                Thread.sleep(20000);
+
             } catch (IOException e) {
                 e.printStackTrace();
-            } catch (InterruptedException ie){
-                ie.printStackTrace();
             }
+
         }
     }
 }
