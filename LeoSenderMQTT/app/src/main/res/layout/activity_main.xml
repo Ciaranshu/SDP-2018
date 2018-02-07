@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.jasonyin.leosender.MainActivity">
+
+    <Button
+        android:id="@+id/btn_game1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="StartGameOne"
+        android:text="@string/btn_game1_txt"
+        tools:layout_editor_absoluteX="50dp"
+        tools:layout_editor_absoluteY="51dp"
+        tools:ignore="MissingConstraints"
+        android:layout_centerHorizontal="true"/>
+
+
+    <Button
+        android:id="@+id/btn_game2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="StartGameTwo"
+        android:text="Start Game 2"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="39dp"
+        tools:layout_editor_absoluteY="121dp"
+        android:layout_below="@id/btn_game1"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/btn_stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="StopGame"
+        android:text="Stop Game"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="50dp"
+        tools:layout_editor_absoluteY="286dp"
+        android:layout_below="@id/btn_game2"
+        android:layout_centerHorizontal="true"/>
+</RelativeLayout>

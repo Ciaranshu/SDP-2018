@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/LeoSender.iml" filepath="$PROJECT_DIR$/LeoSender.iml" />
+      <module fileurl="file://C:\Users\Stelios\Desktop\SDP-2018-master\LeoSender\LeoSender.iml" filepath="C:\Users\Stelios\Desktop\SDP-2018-master\LeoSender\LeoSender.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\Stelios\Desktop\SDP-2018-master\LeoSender\app\app.iml" filepath="C:\Users\Stelios\Desktop\SDP-2018-master\LeoSender\app\app.iml" />
+    </modules>
+  </component>
+</project>
