@@ -1,5 +1,7 @@
 import cv2
 import numpy as np
+# from keras.models import load_model
+from statistics import mode
 
 face_cascade =cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 cap = cv2.VideoCapture(0)
@@ -7,15 +9,21 @@ left_border = 700
 right_border = 500
 face_max = 350
 face_min = 280
+# note: change to thread
+moveback_flag = 0;
+moveforward_flag = 0;
+moveleft_flag = 0;
+moveright_flag = 0;
 
 # Detect the borders
-def FaceBorder(face_centre):
+"""def FaceBorder(face_centre):
     if(face_centre > left_border):
         # Rotate robot to left
         print("out of left border")
     if(face_centre < right_border):
         # Rotate robot to right
         print("out of right border")
+"""
 
 while True:
     biggestFace = 0
@@ -43,13 +51,40 @@ while True:
 
         # check if face is out of the border
         if(_h > face_max):
-            # move robot back
-            print("face too big")
+            # move robot back (note: change to threadg)
+            moveforward_flag = 0
+            moveback_flag+=1
+            if(moveback_flag > 20):
+                print("face too big")
+                moveback_flag = 0
         elif(_h < face_min):
-            # move robot forward
-            print("face too small")
+            # move robot forward (note: change to thread)
+            moveback_flag = 0
+            moveforward_flag+=1
+            if(moveforward_flag > 20):
+                print("face too small")
+                moveforward_flag = 0
         else:
-            FaceBorder(centre_x)
+            # FaceBorder(centre_x)
+            # I'm lazy
+            if(centre_x > left_border):
+                # Rotate robot to left (note: change to thread)
+                moveright_flag = 0
+                moveforward_flag = 0
+                moveback_flag = 0
+                moveleft_flag+=1
+                if(moveleft_flag > 20):
+                    print("out of left border")
+                    moveleft_flag = 0
+            if(centre_x < right_border):
+                # Rotate robot to right (note: change to thread)
+                moveleft_flag = 0
+                moveforward_flag = 0
+                moveback_flag = 0
+                moveright_flag+=1
+                if(moveright_flag > 20):
+                    print("out of right border")
+                    moveright_flag = 0
 
     cv2.imshow('img', img)
     k = cv2.waitKey(30) & 0xff
