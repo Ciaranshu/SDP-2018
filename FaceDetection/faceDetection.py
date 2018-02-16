@@ -10,6 +10,7 @@ right_border = 500
 face_max = 350
 face_min = 280
 # note: change to thread
+timer = 20
 moveback_flag = 0;
 moveforward_flag = 0;
 moveleft_flag = 0;
@@ -54,14 +55,14 @@ while True:
             # move robot back (note: change to threadg)
             moveforward_flag = 0
             moveback_flag+=1
-            if(moveback_flag > 20):
+            if(moveback_flag > timer):
                 print("face too big")
                 moveback_flag = 0
         elif(_h < face_min):
             # move robot forward (note: change to thread)
             moveback_flag = 0
             moveforward_flag+=1
-            if(moveforward_flag > 20):
+            if(moveforward_flag > timer):
                 print("face too small")
                 moveforward_flag = 0
         else:
@@ -73,7 +74,7 @@ while True:
                 moveforward_flag = 0
                 moveback_flag = 0
                 moveleft_flag+=1
-                if(moveleft_flag > 20):
+                if(moveleft_flag > timer):
                     print("out of left border")
                     moveleft_flag = 0
             if(centre_x < right_border):
@@ -82,7 +83,7 @@ while True:
                 moveforward_flag = 0
                 moveback_flag = 0
                 moveright_flag+=1
-                if(moveright_flag > 20):
+                if(moveright_flag > timer):
                     print("out of right border")
                     moveright_flag = 0
 
