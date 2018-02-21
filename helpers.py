@@ -26,7 +26,7 @@ Function that sets all the motors to the position they initially were in.
 Input - a list of motors to be reset
 Returns - nothing
 """
-def resetMotors(motors):
+def resetMotors(motors, speed=SLOW):
     while True:
         if len(motors) == 0:
             break
@@ -34,7 +34,7 @@ def resetMotors(motors):
         # Loop through the motors and adjust their position.
         for i,motor in enumerate(motors):
             if motor.position > 0:
-                motor.run_forever(speed_sp = -SLOW)
+                motor.run_forever(speed_sp = -speed)
                 print( "Motor number " + str(i) + " at " + str(motor.position))
                 if(motor.position <= 0):
                     motor.stop(stop_action="hold")
@@ -43,7 +43,7 @@ def resetMotors(motors):
                     continue
             elif motor.position < 0:
                 print( "Motor number " + str(i) + " at " + str(motor.position))
-                motor.run_forever(speed_sp = SLOW)
+                motor.run_forever(speed_sp = speed)
                 if(motor.position >= 0):
                     motor.stop(stop_action="hold")
                     print(" Removing motor " + str(i))
@@ -61,7 +61,7 @@ def resetMotors(motors):
 Function that sets motors into new positions.
 Takes as input a list of motors and a list of positions
 """
-def setMotors(motors, positions):
+def setMotors(motors, positions, speed=FAST):
     print(len(motors))
     print(len(positions))
     while True:
@@ -70,7 +70,7 @@ def setMotors(motors, positions):
         toRemove = []
         for i, motor in enumerate(motors):
             if motor.position > positions[i]:
-                motor.run_forever(speed_sp = -FAST)
+                motor.run_forever(speed_sp = -speed)
                 print( "Motor number " + str(i) + " at " + str(motor.position) + " MUST BE AT " + str(positions[i]))
                 if(motor.position <= positions[i]):
                     motor.stop(stop_action="hold")
@@ -79,7 +79,7 @@ def setMotors(motors, positions):
                     continue
             elif motor.position < positions[i]:
                 print( "Motor number " + str(i) + " at " + str(motor.position) + " MUST BE AT " + str(positions[i]))
-                motor.run_forever(speed_sp = +FAST)
+                motor.run_forever(speed_sp = +speed)
                 if(motor.position >= positions[i]):
                     motor.stop(stop_action="hold")
                     print(" Removing motor " + str(i))
