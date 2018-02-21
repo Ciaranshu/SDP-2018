@@ -5,10 +5,12 @@ from statistics import mode
 
 face_cascade =cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 cap = cv2.VideoCapture(1)
-left_border = 900
-right_border = 350
+left_border = 800
+right_border = 460
 face_max = 700
-face_min = 620
+face_min = 580
+turn_left = False
+turn_right = False
 # note: change to thread
 timer = 5
 moveback_flag = 0;
@@ -46,6 +48,9 @@ while True:
                 _h = h
                 biggestFace = _w*_h
 
+        # biggestFace value will be 0 if face is not present
+        if(biggestFace == 0):
+            print("Left is %s Right is %s" % (turn_left,turn_right))
         # draw rectangle on closest face
         if (biggestFace > 0):
             cv2.rectangle(img, (_x,_y), (_x+_w, _y+_h), (255,0,0), 2)
@@ -72,6 +77,8 @@ while True:
                 # I'm lazy
                 if(centre_x > left_border):
                     # Rotate robot to left (note: change to thread)
+                    turn_left = True
+                    turn_right = False
                     moveright_flag = 0
                     moveforward_flag = 0
                     moveback_flag = 0
@@ -81,6 +88,8 @@ while True:
                         moveleft_flag = 0
                 elif(centre_x < right_border):
                     # Rotate robot to right (note: change to thread)
+                    turn_right = True
+                    turn_left = False
                     moveleft_flag = 0
                     moveforward_flag = 0
                     moveback_flag = 0
@@ -90,6 +99,9 @@ while True:
                         moveright_flag = 0
                 else:
                     print("face ok")
+                    # reset turing to false
+                    turn_left = False
+                    turn_right = False
 
 
         cv2.imshow('img', img)
