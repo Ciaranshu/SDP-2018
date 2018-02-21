@@ -10,7 +10,7 @@ right_border = 500
 face_max = 350
 face_min = 280
 # note: change to thread
-timer = 20
+timer = 5
 moveback_flag = 0;
 moveforward_flag = 0;
 moveleft_flag = 0;
@@ -77,7 +77,7 @@ while True:
                 if(moveleft_flag > timer):
                     print("out of left border")
                     moveleft_flag = 0
-            if(centre_x < right_border):
+            elif(centre_x < right_border):
                 # Rotate robot to right (note: change to thread)
                 moveleft_flag = 0
                 moveforward_flag = 0
@@ -86,6 +86,9 @@ while True:
                 if(moveright_flag > timer):
                     print("out of right border")
                     moveright_flag = 0
+            else:
+                print("face ok")
+
 
     cv2.imshow('img', img)
     k = cv2.waitKey(30) & 0xff
