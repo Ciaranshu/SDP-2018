@@ -129,22 +129,22 @@ class MainActivity : AppCompatActivity() {
 
             firstGame.setOnClickListener {
                 // Perform action on button click
-                Thread(workerThread("python3 game1.py")).start()
+                Thread(workerThread("game1")).start()
             }
 
             secondGame.setOnClickListener {
                 // Perform action on button click
-                Thread(workerThread("python3 wheels.py")).start()
+                Thread(workerThread("runWheels")).start()
             }
 
             thirdGame.setOnClickListener {
                 // Perform action on button click
-                Thread(workerThread("python3 game3.py")).start()
+                Thread(workerThread("game3")).start()
             }
 
             fourthGame.setOnClickListener {
                 // Perform action on button click
-                Thread(workerThread("python3 game4.py")).start()
+                Thread(workerThread("game4")).start()
             }
 
             if (!mBluetoothAdapter.isEnabled) {
