@@ -4,7 +4,7 @@ import numpy as np
 from statistics import mode
 
 face_cascade =cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 left_border = 800
 right_border = 460
 face_max = 700
