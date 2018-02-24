@@ -9,11 +9,20 @@ def resetPositions():
 
 def goBackwards(distance, speed=500):
     rWheel, lWheel, gyroSensor = initializeSensors()
-    hp.setMotors([rWheel, lWheel],[distance + rWheel.position, lWheel.position - distance], speed)
+    rWheel.run_forever(speed_sp = -speed)
+    lWheel.run_forever(speed_sp = speed)
 
 def goForwards(distance, speed=500):
     rWheel, lWheel, gyroSensor = initializeSensors()
-    hp.setMotors([rWheel, lWheel],[-distance + rWheel.position, lWheel.position + distance], speed)
+    rWheel.run_forever(speed_sp = speed)
+    lWheel.run_forever(speed_sp = -speed)
+
+def stop():
+    rWheel, lWheel, gyroSensor = initializeSensors()
+    rWheel.run_forever(speed_sp = speed)
+    lWheel.run_forever(speed_sp = -speed)
+    rWheel.stop(stop_action="hold")
+    lWheel.stop(stop_action="hold")
 
 def resetGyro():
     gyroSensor.mode = 'GYRO-RATE'
@@ -25,8 +34,7 @@ def initializeSensors():
     gyroSensor = ev3.GyroSensor(ev3.INPUT_1)
     return (rWheel, lWheel, gyroSensor)
 
-
-def rotateClockwise(angle, speed=-500):
+def rotateClockwiseAtAngle(angle, speed=-500):
     rWheel, lWheel, gyroSensor = initializeSensors()
     resetGyro()
     while(gyroSensor.angle <= angle+1):
@@ -36,7 +44,7 @@ def rotateClockwise(angle, speed=-500):
     rWheel.stop(stop_action="hold")
     lWheel.stop(stop_action="hold")
 
-def rotateAntiClockwise(angle, speed=-500):
+def rotateAntiClockwiseAtAngle(angle, speed=-500):
     rWheel, lWheel, gyroSensor = initializeSensors()
     resetGyro()
     angle = - abs(angle)
@@ -46,3 +54,15 @@ def rotateAntiClockwise(angle, speed=-500):
         lWheel.run_forever(speed_sp = speed)
     rWheel.stop(stop_action="hold")
     lWheel.stop(stop_action="hold")
+
+def rotateClockwise(speed=500):
+    rWheel, lWheel, gyroSensor = initializeSensors()
+    resetGyro()
+    rWheel.run_forever(speed_sp = speed)
+    lWheel.run_forever(speed_sp = speed)
+
+def rotateAntiClockwise(speed=500):
+    rWheel, lWheel, gyroSensor = initializeSensors()
+    resetGyro()
+    rWheel.run_forever(speed_sp = speed)
+    lWheel.run_forever(speed_sp = speed)
