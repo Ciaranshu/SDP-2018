@@ -16,32 +16,29 @@ advertise_service( server_sock, "SampleServer",
                     )
 
 print("Waiting for connection on RFCOMM channel %d" % port)
-callable()
 
-def callable():
-    client_sock, client_info = server_sock.accept()
-    print("Accepted connection from ", client_info)
+client_sock, client_info = server_sock.accept()
+print("Accepted connection from ", client_info)
 
-    try:
-        while True:
-            data = client_sock.recv(1024)
-            if len(data) == 0: break
-            print("received [%s]" % data)
+try:
+    while True:
+        data = client_sock.recv(1024)
+        if len(data) == 0: break
+        print("received [%s]" % data)
 
-    		if data == 'game1':
-    			data = 'Playing game 1!'
-    		elif data == 'runWheels':
-    			data = 'Playing game 2!'
-    		elif data == 'game3':
-    			data = 'Playing game 3!'
-    		else:
-    			data = 'Playing game 4!'
-    	        client_sock.send(data)
-    		print "sending [%s]" % data
-            callable()
+		if data == 'game1':
+			data = 'Playing game 1!'
+		elif data == 'runWheels':
+			data = 'Playing game 2!'
+		elif data == 'game3':
+			data = 'Playing game 3!'
+		else:
+			data = 'Playing game 4!'
+	        client_sock.send(data)
+		print "sending [%s]" % data
 
-    except IOError:
-        pass
+except IOError:
+    pass
 
 print("disconnected")
 
