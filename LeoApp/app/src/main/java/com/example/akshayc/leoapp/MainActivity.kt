@@ -37,20 +37,20 @@ class MainActivity : AppCompatActivity() {
 
 
     fun runGame(message: String) {
-        /*val uuid = UUID.fromString("94f39d29-7d6d-437d-973b-fba39e49d4ee") //Standard SerialPortService ID
+        val uuid = UUID.fromString("94f39d29-7d6d-437d-973b-fba39e49d4ee") //Standard SerialPortService ID
         try {
 
             mmSocket = mmDevice!!.createRfcommSocketToServiceRecord(uuid)
             if (!mmSocket!!.isConnected) {
                 mmSocket!!.connect()
-            }*/
+            }
             val msg = message
             val mmOutputStream = mmSocket!!.outputStream
             mmOutputStream.write(msg.toByteArray())
 
-        /*} catch (e: IOException) {
+        } catch (e: IOException) {
             e.printStackTrace()
-        }*/
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,17 +61,6 @@ class MainActivity : AppCompatActivity() {
         ParseInstallation.getCurrentInstallation().saveInBackground() //Sets up connection to backend for displau
 
         //val handler = Handler()
-
-
-        val uuid = UUID.fromString("94f39d29-7d6d-437d-973b-fba39e49d4ee") //Standard SerialPortService ID
-        try {
-            mmSocket = mmDevice!!.createRfcommSocketToServiceRecord(uuid)
-            if (!mmSocket!!.isConnected) {
-                mmSocket!!.connect()
-            }
-        } catch (e: IOException) {
-                e.printStackTrace()
-            }
 
         val firstGame = findViewById<Button>(R.id.game1) as Button
         val secondGame = findViewById<Button>(R.id.game2) as Button
@@ -122,10 +111,10 @@ class MainActivity : AppCompatActivity() {
                                     }
                                 }
 
-                                /*if (workDone == true) {
+                                if (workDone == true) {
                                     mmSocket!!.close()
                                     break
-                                }*/
+                                }
 
                             }
                         } catch (e: IOException) {
@@ -163,17 +152,17 @@ class MainActivity : AppCompatActivity() {
                 startActivityForResult(enableBluetooth, 0)
             }
 
-//            val pairedDevices = mBluetoothAdapter.bondedDevices
-//            if (pairedDevices.size > 0) {
-//                for (device in pairedDevices) {
-//                    if (device.name == "raspberrypi") //Name of our device
-//                    {
-//                        Log.d("Connected!", device.name)
-//                        mmDevice = device
-//                        break
-//                    }
-//                }
-//            }
+            val pairedDevices = mBluetoothAdapter.bondedDevices
+            if (pairedDevices.size > 0) {
+                for (device in pairedDevices) {
+                    if (device.name == "raspberrypi") //Name of our device
+                    {
+                        Log.d("Connected!", device.name)
+                        mmDevice = device
+                        break
+                    }
+                }
+            }
         }
     }
 
