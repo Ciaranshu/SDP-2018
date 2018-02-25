@@ -26,16 +26,17 @@ try:
         if len(data) == 0: break
         print("received [%s]" % data)
 
-		if data == 'game1':
-			data = 'Playing game 1!'
-		elif data == 'runWheels':
-			data = 'Playing game 2!'
-		elif data == 'game3':
-			data = 'Playing game 3!'
-		else:
-			data = 'Playing game 4!'
-	        client_sock.send(data)
-		print "sending [%s]" % data
+        if data == 'game1':
+        	data = 'Playing game 1!'
+        elif data == 'runWheels':
+        	data = 'Playing game 2!'
+        elif data == 'game3':
+        	data = 'Playing game 3!'
+        else:
+        	data = 'Playing game 4!'
+        client_sock.send(data)
+
+        print("sending [%s]" % data)
 
 except IOError:
     pass

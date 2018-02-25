@@ -25,7 +25,7 @@ face_min = 580
 turn_left = False
 turn_right = False
 # note: change to thread
-timer = 5
+timer = 5    # time for the robot to move
 moveback_flag = 0;
 moveforward_flag = 0;
 moveleft_flag = 0;
