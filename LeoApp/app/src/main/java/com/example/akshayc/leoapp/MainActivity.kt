@@ -100,6 +100,7 @@ class MainActivity : AppCompatActivity() {
                                         System.arraycopy(readBuffer, 0, encodedBytes, 0, encodedBytes.size)
                                         val data = String(encodedBytes)
                                         readBufferPosition = 0
+                                        Log.d("This is our data", data)
 
                                         //The variable data now contains our full sensor data we can send to our backend
 
