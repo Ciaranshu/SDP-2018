@@ -11,7 +11,6 @@ import com.parse.ParseInstallation
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
-import java.util.Set
 import java.util.UUID
 
 import android.app.Activity
@@ -100,7 +99,7 @@ class MainActivity : AppCompatActivity() {
                                         System.arraycopy(readBuffer, 0, encodedBytes, 0, encodedBytes.size)
                                         val data = String(encodedBytes)
                                         readBufferPosition = 0
-
+                                        Log.d("This is our data", data)
                                         //The variable data now contains our full sensor data we can send to our backend
 
                                         workDone = true
@@ -155,7 +154,7 @@ class MainActivity : AppCompatActivity() {
             val pairedDevices = mBluetoothAdapter.bondedDevices
             if (pairedDevices.size > 0) {
                 for (device in pairedDevices) {
-                    if (device.name == "raspberrypi") //Name of our device
+                    if (device.name == "rasbperrypi") //Name of our device
                     {
                         Log.d("Connected!", device.name)
                         mmDevice = device
