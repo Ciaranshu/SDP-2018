@@ -19,8 +19,11 @@ advertise_service( server_sock, "SampleServer",
 #                  protocols = [ OBEX_UUID ]
                     )
 
+print("Waiting for connection on RFCOMM channel %d" % port)
+
+
 while True:
-    print("Waiting for connection on RFCOMM channel %d" % port)
+    print("Waiting for connection on RFCOMM channel %d" %port)
     client_sock, client_info = server_sock.accept()
     print("Accepted connection from ", client_info)
 
