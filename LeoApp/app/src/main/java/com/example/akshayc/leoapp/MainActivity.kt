@@ -3,28 +3,19 @@ package com.example.akshayc.leoapp
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.parse.Parse
-import com.parse.ParseException
-import com.parse.ParseObject
-import com.parse.ParseUser
 import com.parse.ParseInstallation
 
 import java.io.IOException
 import java.io.InputStream
-import java.io.OutputStream
 import java.util.UUID
 
-import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothSocket
 import android.content.Intent
-import android.os.Handler
 import android.util.Log
-import android.view.Menu
-import android.view.View
 import android.widget.Button
-import android.widget.TextView
-import kotlinx.android.synthetic.main.activity_main.*
+import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
 
@@ -99,12 +90,7 @@ class MainActivity : AppCompatActivity() {
                                         System.arraycopy(readBuffer, 0, encodedBytes, 0, encodedBytes.size)
                                         val data = String(encodedBytes)
                                         readBufferPosition = 0
-<<<<<<< HEAD
                                         Log.d("This is our data", data)
-=======
-                                        Log.d("This is our data: ", data)
-
->>>>>>> 54894c98112411165c2a85d2d192cc34a44904d5
                                         //The variable data now contains our full sensor data we can send to our backend
 
                                         workDone = true
@@ -133,7 +119,9 @@ class MainActivity : AppCompatActivity() {
 
             firstGame.setOnClickListener {
                 // Perform action on button click
-                Thread(workerThread("game1")).start()
+                var time = Calendar.getInstance().timeInMillis
+//                Log.e("Time in milli: ", time.toString())
+                Thread(workerThread("game1 " + time.toString())).start()
             }
 
             secondGame.setOnClickListener {
