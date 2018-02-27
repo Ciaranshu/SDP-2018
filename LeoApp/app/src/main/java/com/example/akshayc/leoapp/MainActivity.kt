@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     var mmSocket: BluetoothSocket? = null
     var mmDevice: BluetoothDevice? = null
 
+    // use ! to end the stream
     val delimiter: Byte = 33
     var readBufferPosition = 0
 
@@ -83,6 +84,7 @@ class MainActivity : AppCompatActivity() {
                                 val readBuffer = ByteArray(1024)
                                 mmInputStream.read(packetBytes)
 
+//                                Log.e("readBuffer: ", readBuffer.toString());
                                 for (i in 0..bytesAvailable - 1) {
                                     val b = packetBytes[i]
                                     if (b == delimiter) {
@@ -90,7 +92,7 @@ class MainActivity : AppCompatActivity() {
                                         System.arraycopy(readBuffer, 0, encodedBytes, 0, encodedBytes.size)
                                         val data = String(encodedBytes)
                                         readBufferPosition = 0
-                                        Log.d("This is our data", data)
+                                        Log.e("This is our data", data)
                                         //The variable data now contains our full sensor data we can send to our backend
 
                                         workDone = true
@@ -136,7 +138,7 @@ class MainActivity : AppCompatActivity() {
 
             fourthGame.setOnClickListener {
                 // Perform action on button click
-                Thread(workerThread("game4")).start()
+                Thread(workerThread("runFace")).start()
             }
 
             if (!mBluetoothAdapter.isEnabled) {
@@ -147,7 +149,7 @@ class MainActivity : AppCompatActivity() {
             val pairedDevices = mBluetoothAdapter.bondedDevices
             if (pairedDevices.size > 0) {
                 for (device in pairedDevices) {
-                    if (device.name == "rasbperrypi") //Name of our device
+                    if (device.name == "raspberrypi") //Name of our device
                     {
                         Log.d("Connected!", device.name)
                         mmDevice = device
