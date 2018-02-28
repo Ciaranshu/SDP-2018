@@ -15,6 +15,7 @@ import android.bluetooth.BluetoothSocket
 import android.content.Intent
 import android.util.Log
 import android.widget.Button
+import android.widget.TextView
 import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
@@ -44,6 +45,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -57,6 +60,9 @@ class MainActivity : AppCompatActivity() {
         val secondGame = findViewById<Button>(R.id.game2) as Button
         val thirdGame = findViewById<Button>(R.id.game3) as Button
         val fourthGame = findViewById<Button>(R.id.game4) as Button
+        val reaction_min = findViewById<TextView>(R.id.txt_min) as TextView
+        val reaction_max = findViewById<TextView>(R.id.txt_max) as TextView
+        val reaction_average = findViewById<TextView>(R.id.txt_average) as TextView
 
         val mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
 
@@ -95,6 +101,17 @@ class MainActivity : AppCompatActivity() {
                                         Log.e("This is our data", data)
                                         //The variable data now contains our full sensor data we can send to our backend
 
+                                        val reflectionList = data.split(" [ '"," '] ","','")
+                                        val timeSet = mutableListOf<Float>()
+
+                                        for(num in reflectionList){
+                                            timeSet.add(num.toFloat())
+                                        }
+
+                                        reaction_average.setText(timeSet.average().toString())
+                                        reaction_min.setText(timeSet.min().toString())
+                                        reaction_max.setText(timeSet.max().toString())
+
                                         workDone = true
                                         break
 
@@ -117,9 +134,16 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
+            fun clearText(){
+                reaction_average.setText("")
+                reaction_min.setText("")
+                reaction_max.setText("")
+            }
+
             // start game 1 handler
 
             firstGame.setOnClickListener {
+                clearText()
                 // Perform action on button click
                 var time = Calendar.getInstance().timeInMillis
 //                Log.e("Time in milli: ", time.toString())
