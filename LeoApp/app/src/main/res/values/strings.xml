@@ -11,5 +11,5 @@
     <string name="btn_game2">Game 2</string>
     <string name="btn_game3">Game 3</string>
     <string name="btn_startFaceDetection">Start FD</string>
-    <string name="txt_welcome">Thanks you for using Leo</string>
+    <string name="txt_welcome">Thank you for using Leo</string>
 </resources>
