@@ -5,8 +5,8 @@ server_sock=BluetoothSocket( RFCOMM )
 server_sock.bind(("",PORT_ANY))
 server_sock.listen(1)
 
-#client = mqtt.Client()
-#client.connect("10.42.0.54", 1883, 60)
+client = mqtt.Client()
+client.connect("10.42.0.54", 1883, 60)
 
 port = server_sock.getsockname()[1]
 
@@ -21,6 +21,20 @@ advertise_service( server_sock, "SampleServer",
 
 print("Waiting for connection on RFCOMM channel %d" % port)
 
+def on_connect(client, userdata, flags, rc):
+    print("Connected with result code "+str(rc))
+    client.subscribe("topic/getMessage35/dt")
+                     
+def on_message(client, userdata, msg):
+    data = msg.payload.decode()
+    client_sock.send(data + "!")
+    print ("sending [%s]" % data)
+
+client2 = mqtt.Client()
+client2.connect("10.42.0.54",1883,60)
+client2.on_connect = on_connect
+client2.on_message = on_message
+
 
 while True:
     print("Waiting for connection on RFCOMM channel %d" %port)
@@ -32,21 +46,24 @@ while True:
         if len(data) == 0:
             break
         print("received [%s]" % data)
-
-		if data == 'game1':
-			data = 'Playing game 1!'
-            #client.publish("topic/motor-A/dt", "1");
-		elif data == 'runWheels':,
-			data = 'Playing game 2!'
-		elif data == 'game3':
-			data = 'Playing game 3!'
-		else:
-			data = 'Playing game 4!' 
-        client_sock.send(data)
-		print "sending [%s]" % data
+        if data[:5] == 'game1':
+            data = 'Playing game 1!'
+            client.publish("topic/motor-A/dt", "0");
+        elif data == 'runWheels':
+            data = 'Playing game 2!'
+        elif data == 'game3':
+            data = 'Playing game 3!'
+        else:
+            data = 'Playing game 4!'
+        client2.loop_forever()
+    
+        
+        
 
     except IOError:
         pass
+    
+
 
 print("disconnected")
 
