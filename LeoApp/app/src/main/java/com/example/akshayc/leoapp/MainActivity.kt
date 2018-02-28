@@ -64,6 +64,7 @@ class MainActivity : AppCompatActivity() {
         val reaction_max = findViewById<TextView>(R.id.txt_max) as TextView
         val reaction_average = findViewById<TextView>(R.id.txt_average) as TextView
 
+
         val mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
 
         if (mBluetoothAdapter == null) {
@@ -96,21 +97,26 @@ class MainActivity : AppCompatActivity() {
                                     if (b == delimiter) {
                                         val encodedBytes = ByteArray(readBufferPosition)
                                         System.arraycopy(readBuffer, 0, encodedBytes, 0, encodedBytes.size)
-                                        val data = String(encodedBytes)
+                                        var data = String(encodedBytes)
                                         readBufferPosition = 0
                                         Log.e("This is our data", data)
                                         //The variable data now contains our full sensor data we can send to our backend
+                                        data = data.removePrefix("[")
+                                        data = data.removeSuffix("]")
 
-                                        val reflectionList = data.split(" [ '"," '] ","','")
+                                        val reflectionList = data.split(",")
                                         val timeSet = mutableListOf<Float>()
 
                                         for(num in reflectionList){
-                                            timeSet.add(num.toFloat())
+                                            var number = num
+                                            number = number.removeSuffix("\'")
+                                            number = number.removePrefix("\'")
+                                            timeSet.add(number.toFloat())
                                         }
 
-                                        reaction_average.setText(timeSet.average().toString())
-                                        reaction_min.setText(timeSet.min().toString())
-                                        reaction_max.setText(timeSet.max().toString())
+                                        timeSet.average()
+                                        timeSet.min()
+                                        timeSet.max()
 
                                         workDone = true
                                         break
@@ -134,16 +140,12 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            fun clearText(){
-                reaction_average.setText("")
-                reaction_min.setText("")
-                reaction_max.setText("")
-            }
+
 
             // start game 1 handler
 
             firstGame.setOnClickListener {
-                clearText()
+
                 // Perform action on button click
                 var time = Calendar.getInstance().timeInMillis
 //                Log.e("Time in milli: ", time.toString())
