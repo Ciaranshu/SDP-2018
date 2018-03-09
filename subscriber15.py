@@ -2,6 +2,7 @@
 import paho.mqtt.client as mqtt
 import helpers as hp
 import wheels
+from threading import Thread
 from ev3dev.auto import *
 
 
@@ -16,6 +17,11 @@ def representsInt(s):
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code "+str(rc))
     client.subscribe("topic/motor-A/dt")
+    try:
+       t = Thread(target =  wheels.lookForEdge)
+       t.start()  
+    except:
+       print("Unable to start thread")
 
 def on_message(client, userdata, msg):
     if (msg.payload.isalpha()):
@@ -25,15 +31,16 @@ def on_message(client, userdata, msg):
     elif (int(msg.payload) == 1):
         wheels.goBackwards()
     elif (int(msg.payload) == 2):
-        wheels.rotateClockwise
+        wheels.rotateClockwise()
     elif (int(msg.payload) == 3):
-        wheels.rotateAntiClockwise
+        wheels.rotateAntiClockwise()
+
     elif (int(msg.payload) == 4):
         wheels.stop()
 
 
 client = mqtt.Client()
-client.connect("192.168.44.155",1883,60)
+client.connect("10.42.0.180",1883,60)
 
 client.on_connect = on_connect
 client.on_message = on_message
@@ -42,3 +49,4 @@ client.on_message = on_message
 #m.duty_cycle_sp=0
 
 client.loop_forever()
+

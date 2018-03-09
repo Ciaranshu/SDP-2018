@@ -5,4 +5,11 @@
     <!-- Change the following strings as required -->
     <string name="back4app_app_id">tIdJ4EevU1yCdQQJ6fJhqxKlFiRgUjP1DUEzfeWc</string>
     <string name="back4app_client_key">iqnNgPLywTB0mV1Hjtuf9aLkCZxDvLFYE57AFEut</string>
+
+    <!--String for buttons-->
+    <string name="btn_game1">Game 1</string>
+    <string name="btn_game2">Game 2</string>
+    <string name="btn_game3">Game 3</string>
+    <string name="btn_startFaceDetection">Start FD</string>
+    <string name="txt_welcome">Thank you for using Leo</string>
 </resources>

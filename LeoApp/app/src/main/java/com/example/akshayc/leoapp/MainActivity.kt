@@ -3,35 +3,32 @@ package com.example.akshayc.leoapp
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.parse.Parse
-import com.parse.ParseException
-import com.parse.ParseObject
-import com.parse.ParseUser
 import com.parse.ParseInstallation
 
 import java.io.IOException
 import java.io.InputStream
+<<<<<<< HEAD
 import java.io.OutputStream
 import java.util.Set
+=======
+>>>>>>> 0a99032b90c14cb86a9940952e266ea85b983d82
 import java.util.UUID
 
-import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothSocket
 import android.content.Intent
-import android.os.Handler
 import android.util.Log
-import android.view.Menu
-import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import kotlinx.android.synthetic.main.activity_main.*
+import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
 
     var mmSocket: BluetoothSocket? = null
     var mmDevice: BluetoothDevice? = null
 
+    // use ! to end the stream
     val delimiter: Byte = 33
     var readBufferPosition = 0
 
@@ -53,6 +50,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -66,6 +65,10 @@ class MainActivity : AppCompatActivity() {
         val secondGame = findViewById<Button>(R.id.game2) as Button
         val thirdGame = findViewById<Button>(R.id.game3) as Button
         val fourthGame = findViewById<Button>(R.id.game4) as Button
+        val reaction_min = findViewById<TextView>(R.id.txt_min) as TextView
+        val reaction_max = findViewById<TextView>(R.id.txt_max) as TextView
+        val reaction_average = findViewById<TextView>(R.id.txt_average) as TextView
+
 
         val mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
 
@@ -93,16 +96,37 @@ class MainActivity : AppCompatActivity() {
                                 val readBuffer = ByteArray(1024)
                                 mmInputStream.read(packetBytes)
 
+//                                Log.e("readBuffer: ", readBuffer.toString());
                                 for (i in 0..bytesAvailable - 1) {
                                     val b = packetBytes[i]
                                     if (b == delimiter) {
                                         val encodedBytes = ByteArray(readBufferPosition)
                                         System.arraycopy(readBuffer, 0, encodedBytes, 0, encodedBytes.size)
-                                        val data = String(encodedBytes)
+                                        var data = String(encodedBytes)
                                         readBufferPosition = 0
+<<<<<<< HEAD
 
                                         Log.d("This is our data", data)
+=======
+                                        Log.e("This is our data", data)
+>>>>>>> 0a99032b90c14cb86a9940952e266ea85b983d82
                                         //The variable data now contains our full sensor data we can send to our backend
+                                        data = data.removePrefix("[")
+                                        data = data.removeSuffix("]")
+
+                                        val reflectionList = data.split(",")
+                                        val timeSet = mutableListOf<Float>()
+
+                                        for(num in reflectionList){
+                                            var number = num
+                                            number = number.removeSuffix("\'")
+                                            number = number.removePrefix("\'")
+                                            timeSet.add(number.toFloat())
+                                        }
+
+                                        timeSet.average()
+                                        timeSet.min()
+                                        timeSet.max()
 
                                         workDone = true
                                         break
@@ -126,11 +150,16 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
+
+
             // start game 1 handler
 
             firstGame.setOnClickListener {
+
                 // Perform action on button click
-                Thread(workerThread("game1")).start()
+                var time = Calendar.getInstance().timeInMillis
+//                Log.e("Time in milli: ", time.toString())
+                Thread(workerThread("game1 " + time.toString())).start()
             }
 
             secondGame.setOnClickListener {
@@ -145,7 +174,7 @@ class MainActivity : AppCompatActivity() {
 
             fourthGame.setOnClickListener {
                 // Perform action on button click
-                Thread(workerThread("game4")).start()
+                Thread(workerThread("runFace")).start()
             }
 
             if (!mBluetoothAdapter.isEnabled) {

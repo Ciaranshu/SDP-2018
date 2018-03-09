@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.stelios.leoappjavamosquitto.MainActivity">
+
+    <Button
+        android:id="@+id/btn_game1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/btn_game4"
+        android:layout_marginTop="20dp"
+        android:onClick="StartGameOne"
+        android:text="@string/btn_game1_txt"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="50dp"
+        tools:layout_editor_absoluteY="51dp" />
+
+
+    <Button
+        android:id="@+id/btn_game2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/btn_game1"
+        android:layout_below="@+id/btn_game1"
+        android:layout_marginTop="12dp"
+        android:onClick="StartGameTwo"
+        android:text="Start Game 2"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="39dp"
+        tools:layout_editor_absoluteY="121dp" />
+
+    <Button
+        android:id="@+id/btn_game3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/btn_game2"
+        android:layout_below="@+id/btn_game2"
+        android:layout_marginTop="16dp"
+        android:onClick="StartGameThree"
+        android:text="Start Game 3"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="39dp"
+        tools:layout_editor_absoluteY="121dp" />
+
+    <Button
+        android:id="@+id/btn_game4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_game3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:onClick="StartGameFour"
+        android:text="Start Game 4"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="39dp"
+        tools:layout_editor_absoluteY="121dp" />
+
+    <Button
+        android:id="@+id/btn_stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_game4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:onClick="StopGame"
+        android:text="Stop Game"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="50dp"
+        tools:layout_editor_absoluteY="286dp" />
+
+    <Button
+        android:id="@+id/btn_see_results"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_stop"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="66dp"
+        android:onClick="SeeResult"
+        android:text="See Results"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="50dp"
+        tools:layout_editor_absoluteY="286dp" />
+
+</RelativeLayout>
