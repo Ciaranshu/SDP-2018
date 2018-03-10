@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
 
     public void StartGameOne(View view) {
         try {
-            client.publish("topic/motor-A/dt",msg0);
+            client.publish("topic/rpi/dt",msg0);
         } catch (MqttPersistenceException e) {
             e.printStackTrace();
         } catch (MqttException e) {
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
 
     public void StartGameTwo(View view) {
         try {
-            client.publish("topic/motor-A/dt",msg1);
+            client.publish("topic/rpi/dt",msg1);
         } catch (MqttPersistenceException e) {
             e.printStackTrace();
         } catch (MqttException e) {
@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
 
     public void StartGameThree(View view) {
         try {
-            client.publish("topic/motor-A/dt",msg2);
+            client.publish("topic/rpi/dt",msg2);
         } catch (MqttPersistenceException e) {
             e.printStackTrace();
         } catch (MqttException e) {
@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
 
     public void StartGameFour(View view) {
         try {
-            client.publish("topic/motor-A/dt",msg3);
+            client.publish("topic/rpi/dt",msg3);
         } catch (MqttPersistenceException e) {
             e.printStackTrace();
         } catch (MqttException e) {
@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
 
     public void StopGame(View view) {
         try {
-            client.publish("topic/motor-A/dt",msgCancel);
+            client.publish("topic/rpi/dt",msgCancel);
         } catch (MqttPersistenceException e) {
             e.printStackTrace();
         } catch (MqttException e) {
@@ -173,23 +173,6 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         Intent intent= new Intent(MainActivity.this,ResultsActivity.class);
         intent.putExtra("data", (ArrayList<String>) lista);
         startActivity(intent);
-
-        for (String data : lista) {
-            ParseObject parseObject = new ParseObject("LeoData");
-            parseObject.put("data", data);
-            parseObject.saveInBackground(new SaveCallback() {
-                @Override
-                public void done(ParseException e) {
-                    Context context = getApplicationContext();
-                    CharSequence text = "Saved on server successfully!";
-                    int duration = Toast.LENGTH_LONG;
-                    if (e == null)
-                        Toast.makeText(context, text, duration).show();
-                    else
-                        Toast.makeText(context, e.getMessage(), duration).show();
-                }
-            });
-        }
 
     }
 
@@ -206,6 +189,22 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
 
         a = a.replaceAll("[\"\'\\[\\]]","");
         lista.add(a);
+
+
+        ParseObject parseObject = new ParseObject("LeoData");
+        parseObject.put("data", a);
+        parseObject.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                Context context = getApplicationContext();
+                CharSequence text = "Saved on server successfully!";
+                int duration = Toast.LENGTH_LONG;
+                if (e == null)
+                    Toast.makeText(context, text, duration).show();
+                else
+                    Toast.makeText(context, e.getMessage(), duration).show();
+                }
+            });
 
         System.out.println(a);
         System.out.println("**************************");
