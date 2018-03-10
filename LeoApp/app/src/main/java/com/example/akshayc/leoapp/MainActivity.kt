@@ -1,24 +1,24 @@
 package com.example.akshayc.leoapp
 
+import android.bluetooth.BluetoothAdapter
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.parse.Parse
 import com.parse.ParseInstallation
 
 import java.io.IOException
 import java.io.InputStream
-<<<<<<< HEAD
+
 import java.io.OutputStream
 import java.util.Set
-=======
->>>>>>> 0a99032b90c14cb86a9940952e266ea85b983d82
+
+
 import java.util.UUID
 
-import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothSocket
 import android.content.Intent
-import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import java.util.Calendar
@@ -104,12 +104,12 @@ class MainActivity : AppCompatActivity() {
                                         System.arraycopy(readBuffer, 0, encodedBytes, 0, encodedBytes.size)
                                         var data = String(encodedBytes)
                                         readBufferPosition = 0
-<<<<<<< HEAD
+
 
                                         Log.d("This is our data", data)
-=======
+
                                         Log.e("This is our data", data)
->>>>>>> 0a99032b90c14cb86a9940952e266ea85b983d82
+
                                         //The variable data now contains our full sensor data we can send to our backend
                                         data = data.removePrefix("[")
                                         data = data.removeSuffix("]")

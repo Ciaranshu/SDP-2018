@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Message;
 import android.os.ParcelUuid;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
@@ -25,6 +27,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.UUID;
+
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
+import com.parse.ParseInstallation;
+import com.parse.SaveCallback;
+
+import okhttp3.internal.Util;
 
 public class MainActivity extends AppCompatActivity implements org.eclipse.paho.client.mqttv3.MqttCallback {
 
@@ -49,6 +60,29 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         lista = new ArrayList<String>();
+        Parse.initialize(this);
+        ParseInstallation.getCurrentInstallation().saveInBackground();
+
+        /*ArrayList<String> listb = new ArrayList<>();
+        listb.add("hello");
+        listb.add("Can you hear me");
+
+        for (String data : listb) {
+            ParseObject parseObject = new ParseObject("LeoData");
+            parseObject.put("data", data);
+            parseObject.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    Context context = getApplicationContext();
+                    CharSequence text = "Saved on server successfully!";
+                    int duration = Toast.LENGTH_LONG;
+                    if (e == null)
+                        Toast.makeText(context, text, duration).show();
+                    else
+                        Toast.makeText(context, e.getMessage(), duration).show();
+                }
+            });
+        }*/
 
        try {
            //"tcp://10.42.0.1:1883"
@@ -139,6 +173,23 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         Intent intent= new Intent(MainActivity.this,ResultsActivity.class);
         intent.putExtra("data", (ArrayList<String>) lista);
         startActivity(intent);
+
+        for (String data : lista) {
+            ParseObject parseObject = new ParseObject("LeoData");
+            parseObject.put("data", data);
+            parseObject.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    Context context = getApplicationContext();
+                    CharSequence text = "Saved on server successfully!";
+                    int duration = Toast.LENGTH_LONG;
+                    if (e == null)
+                        Toast.makeText(context, text, duration).show();
+                    else
+                        Toast.makeText(context, e.getMessage(), duration).show();
+                }
+            });
+        }
 
     }
 

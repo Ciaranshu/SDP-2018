@@ -28,4 +28,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     provided 'com.google.android.things:androidthings:0.1-devpreview'
     compile 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.0.2'
+    compile 'com.parse:parse-android:1.16.7'
+}
+
+repositories {
+    mavenCentral()
 }
