@@ -22,7 +22,7 @@ clientEV3.connect("10.42.0.54", 1883, 60000)
 
 #p = vlc.MediaPlayer("/home/pi/Desktop/zelda.mp3")
 
-# Formula to return the divisor 
+# Formula to return the divisor : (n^2 * n) / 2
 def formula(outOf):
     return int((((outOf*outOf)+outOf)/2)-1)
 
@@ -64,12 +64,13 @@ def on_message(client, userdata, msg):
     
     ####### Memory part #######
     
+    # If the user completes current stage
     elif(data == "b'memory: 100'"):
        
         # Update score
         score+=len(pattern)
         
-        # Stop when the size of the pattern is larger than 10
+        # Stop when the size of the pattern is larger than 10, which is dettermined he last stage
         if(len(pattern) >=10):
             
             # Sending results to app after successful completion of game eg. Score 55/55
@@ -87,6 +88,7 @@ def on_message(client, userdata, msg):
             # Run the new pattern on EV3
             clientEV3.publish("topic/ev3/dt", str("353,"+pattern))
         
+    # If the user fails to complete the current stage    
     elif(data[:9] == "b'memory:"):
         
         #Update score
