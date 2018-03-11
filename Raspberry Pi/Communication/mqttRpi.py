@@ -19,7 +19,7 @@ clientEV3.connect("10.42.0.54", 1883, 60000)
  
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code " +str(rc))
-    client.subscribe("topic/motor-A/dt")
+    client.subscribe("topic/rpi/dt")
     
 def on_message(client, userdata, msg):
     
@@ -29,22 +29,23 @@ def on_message(client, userdata, msg):
     # Phone -> Rpi -> EV3
     
     if(data == "b'0'"):
-        clientEV3.publish("topic/motor-A/dt", "350")
-        print("sending")
+        clientEV3.publish("topic/ev3/dt", "350")
         #p.play()
     elif(data == "b'1'"):
-        clientEV3.publish("topic/motor-A/dt", "351")
+        clientEV3.publish("topic/ev3/dt", "351")
         #p.play()
     elif(data == "b'2'"):
-        clientEV3.publish("topic/motor-A/dt", "352")
+        clientEV3.publish("topic/ev3/dt", "352")
         #p.play()
     elif(data == "b'3'"):
+        # Memory game
+        clientEV3.publish("topic/ev3/dt", "353,0012002")
+        #p.play()        
+    elif(data == "b'4'"):
         os.system("python3 faceDetection.py")
     elif(data == "b'-1'"):
         clientEV3.disconnect()
     
-    elif(data == "b'350'" or data == "b'351'" or data == "b'352'" ):
-        print("Ignore")
         
     # EV3 -> Rpi -> Phone
         
