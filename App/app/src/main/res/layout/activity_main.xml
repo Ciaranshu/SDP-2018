@@ -1,87 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/Leo"
     tools:context="com.example.stelios.leoappjavamosquitto.MainActivity">
 
-    <Button
-        android:id="@+id/btn_game1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/btn_see_results"
-        android:layout_marginTop="22dp"
-        android:onClick="StartGameOne"
-        android:text="Short Game"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="50dp"
-        tools:layout_editor_absoluteY="51dp" />
-
 
     <Button
-        android:id="@+id/btn_game2"
-        android:layout_width="wrap_content"
+        android:id="@+id/button"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_game1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:onClick="StartGameTwo"
-        android:text="Say Hello"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="39dp"
-        tools:layout_editor_absoluteY="121dp" />
-
-    <Button
-        android:id="@+id/btn_game3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/btn_stop"
-        android:layout_below="@+id/btn_game2"
-        android:layout_marginTop="18dp"
-        android:onClick="StartGameThree"
-        android:text="Long Game"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="39dp"
-        tools:layout_editor_absoluteY="121dp" />
-
-    <Button
-        android:id="@+id/btn_game4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_game3"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="18dp"
-        android:onClick="StartGameFour"
-        android:text="Memory Game"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="39dp"
-        tools:layout_editor_absoluteY="121dp" />
-
-    <Button
-        android:id="@+id/btn_stop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_game4"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        android:onClick="StopGame"
-        android:text="Stop Game"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="50dp"
-        tools:layout_editor_absoluteY="286dp" />
-
-    <Button
-        android:id="@+id/btn_see_results"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_stop"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="66dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginTop="36dp"
+        android:background="@color/button"
+        android:elevation="0dp"
+        android:fontFamily="@font/annie_use_your_telescope"
         android:onClick="SeeResult"
         android:text="See Results"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="50dp"
-        tools:layout_editor_absoluteY="286dp" />
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button11" />
 
-</RelativeLayout>
+    <Button
+        android:id="@+id/button11"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+        android:layout_marginTop="36dp"
+        android:background="@color/button"
+        android:elevation="0dp"
+        android:fontFamily="@font/annie_use_your_telescope"
+        android:onClick="StartGameFour"
+        android:text="Memory Game"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button7" />
+
+    <Button
+        android:id="@+id/button8"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="36dp"
+        android:background="@color/button"
+        android:elevation="0dp"
+        android:fontFamily="@font/annie_use_your_telescope"
+        android:onClick="StartFaceDetection"
+        android:text="Detect Face"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button10" />
+
+    <Button
+        android:id="@+id/button10"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="36dp"
+        android:background="@color/button"
+        android:elevation="0dp"
+        android:fontFamily="@font/annie_use_your_telescope"
+        android:onClick="StartGameThree"
+        android:text="Long Game"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button6" />
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+        android:layout_marginTop="36dp"
+        android:background="@color/button"
+        android:elevation="0dp"
+        android:fontFamily="@font/annie_use_your_telescope"
+        android:onClick="StartGameTwo"
+        android:text="Say Hello"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button9" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="36dp"
+        android:background="@color/button"
+        android:elevation="0dp"
+        android:fontFamily="@font/annie_use_your_telescope"
+        android:onClick="StartGameOne"
+        android:text="Move Hands"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button9" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="120dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="36dp"
+        android:background="@color/button"
+        android:elevation="0dp"
+        android:fontFamily="@font/annie_use_your_telescope"
+        android:onClick="StopGame"
+        android:text="Disconnect"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
+
+    <Button
+        android:id="@+id/button9"
+        android:layout_width="120dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="48dp"
+        android:background="@color/button"
+        android:elevation="0dp"
+        android:fontFamily="@font/annie_use_your_telescope"
+        android:onClick="createConnection"
+        android:text="Connect"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

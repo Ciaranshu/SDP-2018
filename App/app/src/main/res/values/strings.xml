@@ -4,4 +4,6 @@
     <string name="back4app_server_url">https://parseapi.back4app.com/</string>
     <string name="back4app_app_id">tIdJ4EevU1yCdQQJ6fJhqxKlFiRgUjP1DUEzfeWc</string>
     <string name="back4app_client_key">iqnNgPLywTB0mV1Hjtuf9aLkCZxDvLFYE57AFEut</string>
+    <color name="Leo">#0D8BD3</color>
+    <color name="button">#ffffff</color>
 </resources>
