@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
     private ArrayList<String> lista;
     private ArrayAdapter<String> listAdapter;
     private ListView listView1;
+    private MqttConnectOptions timeOut;
+
 
 
 
@@ -62,6 +64,10 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         lista = new ArrayList<String>();
         Parse.initialize(this);
         ParseInstallation.getCurrentInstallation().saveInBackground();
+
+        // Setting timeout Interval for connection
+        timeOut = new MqttConnectOptions();
+        timeOut.setKeepAliveInterval(600000);
 
         /*ArrayList<String> listb = new ArrayList<>();
         listb.add("hello");
@@ -88,7 +94,9 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
            //"tcp://10.42.0.1:1883"
             client = new MqttClient("tcp://10.42.0.1:1883", "AndroidThingSub", new MemoryPersistence());
             client.setCallback(this);
-            client.connect();
+
+            // Connect client with Mqqt option timeOut initialised above
+            client.connect(timeOut);
 
             String stringMsg0 = new String ("0");
             byte[] b0 = stringMsg0.getBytes();
