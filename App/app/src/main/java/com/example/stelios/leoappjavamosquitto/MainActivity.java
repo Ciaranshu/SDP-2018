@@ -10,6 +10,7 @@ import android.os.Message;
 import android.os.ParcelUuid;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -43,15 +44,13 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
     private InputStream inStream;
     private BluetoothServerSocket mmServerSocket;
     private MqttClient client;
-    private MqttClient client2;
     private MqttMessage msg0;
     private MqttMessage msg1;
     private MqttMessage msg2;
     private MqttMessage msg3;
+    private MqttMessage msg4;
     private MqttMessage msgCancel;
     private ArrayList<String> lista;
-    private ArrayAdapter<String> listAdapter;
-    private ListView listView1;
     private MqttConnectOptions timeOut;
 
 
@@ -59,39 +58,24 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         lista = new ArrayList<String>();
         Parse.initialize(this);
         ParseInstallation.getCurrentInstallation().saveInBackground();
+        //getActionBar().setTitle(Html.fromHtml("<font color='#0D8BD3'>LeoApp</font>"));
+
+    }
+
+    public void createConnection(View view) {
 
         // Setting timeout Interval for connection
         timeOut = new MqttConnectOptions();
         timeOut.setKeepAliveInterval(600000);
 
-        /*ArrayList<String> listb = new ArrayList<>();
-        listb.add("hello");
-        listb.add("Can you hear me");
-
-        for (String data : listb) {
-            ParseObject parseObject = new ParseObject("LeoData");
-            parseObject.put("data", data);
-            parseObject.saveInBackground(new SaveCallback() {
-                @Override
-                public void done(ParseException e) {
-                    Context context = getApplicationContext();
-                    CharSequence text = "Saved on server successfully!";
-                    int duration = Toast.LENGTH_LONG;
-                    if (e == null)
-                        Toast.makeText(context, text, duration).show();
-                    else
-                        Toast.makeText(context, e.getMessage(), duration).show();
-                }
-            });
-        }*/
-
-       try {
-           //"tcp://10.42.0.1:1883"
+        try {
+            //"tcp://10.42.0.1:1883"
             client = new MqttClient("tcp://10.42.0.1:1883", "AndroidThingSub", new MemoryPersistence());
             client.setCallback(this);
 
@@ -114,13 +98,15 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
             byte[] b3 = stringMsg3.getBytes();
             msg3 = new MqttMessage(b3);
 
+            String stringMsg4 = new String ("4");
+            byte[] b4 = stringMsg3.getBytes();
+            msg4 = new MqttMessage(b4);
+
             String stringMsgc = new String ("-1");
             byte[] bc = stringMsgc.getBytes();
             msgCancel = new MqttMessage(bc);
 
             client.subscribe("topic/android/dt");
-
-
 
         } catch (MqttException e) {
             e.printStackTrace();
@@ -167,6 +153,16 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         }
     }
 
+    public void StartFaceDetection(View view) {
+        try {
+            client.publish("topic/rpi/dt",msg4);
+        } catch (MqttPersistenceException e) {
+            e.printStackTrace();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void StopGame(View view) {
         try {
             client.publish("topic/rpi/dt",msgCancel);
@@ -197,7 +193,6 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
 
         a = a.replaceAll("[\"\'\\[\\]]","");
         lista.add(a);
-
 
         ParseObject parseObject = new ParseObject("LeoData");
         parseObject.put("data", a);
