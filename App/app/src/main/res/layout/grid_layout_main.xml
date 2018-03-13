@@ -24,6 +24,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:background="@drawable/button_round"
+                android:fontFamily="@font/carter_one"
                 android:text="Button" />
         </LinearLayout>
 
@@ -40,6 +41,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:background="@drawable/button_round"
+                android:fontFamily="@font/carter_one"
                 android:text="Button" />
         </LinearLayout>
 

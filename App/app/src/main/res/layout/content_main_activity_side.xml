@@ -56,7 +56,12 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="fill_parent"
                                 android:background="@drawable/button_round"
-                                android:text="Button" />
+                                android:fontFamily="@font/carter_one"
+                                android:onClick="StartGameOne"
+                                android:text="@string/btn_moveHand"
+                                android:textSize="25sp"
+                                android:textStyle="bold"
+                                android:textColor="#FFFFFF"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -72,7 +77,12 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="fill_parent"
                                 android:background="@drawable/button_round"
-                                android:text="Button" />
+                                android:fontFamily="@font/carter_one"
+                                android:onClick="StartGameTwo"
+                                android:text="@string/btn_sayHello"
+                                android:textSize="25sp"
+                                android:textStyle="bold"
+                                android:textColor="#FFFFFF"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -97,7 +107,12 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="fill_parent"
                                 android:background="@drawable/button_round"
-                                android:text="Button" />
+                                android:fontFamily="@font/carter_one"
+                                android:onClick="StartGameThree"
+                                android:text="@string/btn_longGame"
+                                android:textSize="25sp"
+                                android:textStyle="bold"
+                                android:textColor="#FFFFFF"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -114,7 +129,12 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="fill_parent"
                                 android:background="@drawable/button_round"
-                                android:text="Button" />
+                                android:fontFamily="@font/carter_one"
+                                android:onClick="StartGameFour"
+                                android:text="@string/btn_memoryGame"
+                                android:textSize="25sp"
+                                android:textStyle="bold"
+                                android:textColor="#FFFFFF"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -138,7 +158,12 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="fill_parent"
                                 android:background="@drawable/button_round"
-                                android:text="Button" />
+                                android:fontFamily="@font/carter_one"
+                                android:onClick="StartFaceDetection"
+                                android:text="@string/btn_detectFace"
+                                android:textSize="25sp"
+                                android:textStyle="bold"
+                                android:textColor="#FFFFFF"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -154,7 +179,12 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="fill_parent"
                                 android:background="@drawable/button_round"
-                                android:text="Button" />
+                                android:fontFamily="@font/carter_one"
+                                android:onClick="StopGame"
+                                android:text="@string/disagree"
+                                android:textSize="25sp"
+                                android:textStyle="bold"
+                                android:textColor="#FFFFFF"/>
                         </LinearLayout>
 
                     </LinearLayout>

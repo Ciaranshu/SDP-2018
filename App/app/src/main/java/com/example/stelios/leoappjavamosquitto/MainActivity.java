@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         view1 = inflater.inflate(R.layout.content_main_activity_side, null);
         view2 = inflater.inflate(R.layout.activity_long_game_graph,null);
 
-        viewList = new ArrayList<View>();// 将要分页显示的View装入数组中
+        viewList = new ArrayList<View>();
         viewList.add(view1);
         viewList.add(view2);
 
@@ -162,11 +162,11 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
                 .title(R.string.title)
                 .content(R.string.content)
                 .positiveText(R.string.agree)
+                .negativeText(R.string.disagree)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(MaterialDialog dialog, DialogAction which) {
-                        dialog.dismiss();
-                        //createConnection();
+                        createConnection();
 
 
                     }
@@ -221,17 +221,15 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_basic_game) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_memory_game) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_reaction_game) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_detect_face) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.action_settings) {
 
         }
 
@@ -244,7 +242,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
 
         // Setting timeout Interval for connection
         timeOut = new MqttConnectOptions();
-        timeOut.setKeepAliveInterval(600);
+        timeOut.setKeepAliveInterval(60);
 
         try {
             //"tcp://10.42.0.1:1883"

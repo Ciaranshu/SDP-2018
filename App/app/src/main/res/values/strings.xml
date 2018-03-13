@@ -29,5 +29,13 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_main2">Main2Activity</string>
 
+    <!--strings for navs-->
+    <string name="nav_basic">Basic Games</string>
+    <string name="nav_memoryGame">Memory Games</string>
+    <string name="nav_reactionGame">Reaction Game</string>
+    <string name="nav_detectFace">Detect Face</string>
+    <string name="nav_title_Settings">Settings</string>
+    <string name="nav_setting">Setting</string>
+
 
 </resources>
