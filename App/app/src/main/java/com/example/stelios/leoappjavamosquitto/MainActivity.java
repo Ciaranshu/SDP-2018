@@ -54,17 +54,14 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
     private MqttConnectOptions timeOut;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //lista = new ArrayList<String>();
+
         Parse.initialize(this);
         ParseInstallation.getCurrentInstallation().saveInBackground();
-        //getActionBar().setTitle(Html.fromHtml("<font color='#0D8BD3'>LeoApp</font>"));
 
     }
 
