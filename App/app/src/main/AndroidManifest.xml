@@ -26,7 +26,7 @@
         </activity>
         <activity
             android:name=".ResultsActivity"
-            android:label= "Data"
+            android:label="Data"
             android:noHistory="false"
             android:screenOrientation="portrait" />
 
@@ -43,6 +43,8 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
+        <activity android:name=".LongGameResultsActivity" />
+        <activity android:name=".LongGameGraphActivity"></activity>
     </application>
 
 </manifest>

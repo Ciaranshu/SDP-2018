@@ -30,6 +30,7 @@ dependencies {
     provided 'com.google.android.things:androidthings:0.1-devpreview'
     compile 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.0.2'
     compile 'com.parse:parse-android:1.16.7'
+    compile 'com.jjoe64:graphview:4.2.1'
 }
 
 repositories {
