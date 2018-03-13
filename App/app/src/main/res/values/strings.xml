@@ -6,4 +6,13 @@
     <string name="back4app_client_key">iqnNgPLywTB0mV1Hjtuf9aLkCZxDvLFYE57AFEut</string>
     <color name="Leo">#0D8BD3</color>
     <color name="button">#ffffff</color>
+
+    <string name="btn_connect">connect</string>
+    <string name="btn_moveHand">move hands</string>
+    <string name="btn_sayHello">say hello</string>
+    <string name="btn_longGame">long game</string>
+    <string name="btn_memoryGame">memory game</string>
+    <string name="btn_detectFace">detect face</string>
+    <string name="btn_seeResult">see result</string>
+    <string name="btn_disconnect">disconnect</string>
 </resources>

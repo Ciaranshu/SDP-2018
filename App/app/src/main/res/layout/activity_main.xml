@@ -9,7 +9,27 @@
 
 
     <Button
+<<<<<<< HEAD
         android:id="@+id/button11"
+=======
+        android:id="@+id/btn_seeResult"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+        android:layout_marginTop="36dp"
+        android:background="@color/button"
+        android:elevation="0dp"
+        android:fontFamily="@font/annie_use_your_telescope"
+        android:onClick="SeeResult"
+        android:text="@string/btn_seeResult"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_memoryGame_g4" />
+
+    <Button
+        android:id="@+id/btn_memoryGame_g4"
+>>>>>>> 989dbed5a65be9e9dcab059ac9a7f521050c3a4b
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="28dp"
@@ -18,14 +38,14 @@
         android:elevation="0dp"
         android:fontFamily="@font/annie_use_your_telescope"
         android:onClick="StartGameFour"
-        android:text="Memory Game"
+        android:text="@string/btn_memoryGame"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button7" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_sayHello_g2" />
 
     <Button
-        android:id="@+id/button8"
+        android:id="@+id/btn_detectFace"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -35,15 +55,15 @@
         android:elevation="0dp"
         android:fontFamily="@font/annie_use_your_telescope"
         android:onClick="StartFaceDetection"
-        android:text="Detect Face"
+        android:text="@string/btn_detectFace"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button10" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_longGame_g3" />
 
     <Button
-        android:id="@+id/button10"
+        android:id="@+id/btn_longGame_g3"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
@@ -52,14 +72,14 @@
         android:elevation="0dp"
         android:fontFamily="@font/annie_use_your_telescope"
         android:onClick="StartGameThree"
-        android:text="Long Game"
+        android:text="@string/btn_longGame"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button6" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_moveHands_g1" />
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/btn_sayHello_g2"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="28dp"
@@ -68,14 +88,14 @@
         android:elevation="0dp"
         android:fontFamily="@font/annie_use_your_telescope"
         android:onClick="StartGameTwo"
-        android:text="Say Hello"
+        android:text="@string/btn_sayHello"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button9" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_connect" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/btn_moveHands_g1"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
@@ -84,14 +104,14 @@
         android:elevation="0dp"
         android:fontFamily="@font/annie_use_your_telescope"
         android:onClick="StartGameOne"
-        android:text="Move Hands"
+        android:text="@string/btn_moveHand"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button9" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_connect" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/btn_disconnect"
         android:layout_width="120dp"
         android:layout_height="45dp"
         android:layout_marginEnd="8dp"
@@ -101,15 +121,19 @@
         android:elevation="0dp"
         android:fontFamily="@font/annie_use_your_telescope"
         android:onClick="StopGame"
-        android:text="Disconnect"
+        android:text="@string/btn_disconnect"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+<<<<<<< HEAD
         app:layout_constraintTop_toBottomOf="@+id/button8" />
+=======
+        app:layout_constraintTop_toBottomOf="@+id/btn_seeResult" />
+>>>>>>> 989dbed5a65be9e9dcab059ac9a7f521050c3a4b
 
     <Button
-        android:id="@+id/button9"
+        android:id="@+id/btn_connect"
         android:layout_width="120dp"
         android:layout_height="45dp"
         android:layout_marginEnd="8dp"
@@ -119,7 +143,7 @@
         android:elevation="0dp"
         android:fontFamily="@font/annie_use_your_telescope"
         android:onClick="createConnection"
-        android:text="Connect"
+        android:text="@string/btn_connect"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

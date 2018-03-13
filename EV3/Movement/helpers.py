@@ -1,6 +1,11 @@
+import ev3dev.ev3 as ev3
+
+from time import sleep, time
+
 """
 File containing helper functions used for robot movement
 """
+
 FAST = 300
 SLOW = 50
 
@@ -8,10 +13,17 @@ SLOW = 50
 Function used to wait for touch from the user
 Currently waiting for infinity. Possible to update it with a timer
 """
-def waitForTouch(sensors):
+def waitForTouch(sensors,string="both"):
+    if string == "both":
+        ev3.Sound.speak("Both")
+    elif string == "left":
+        ev3.Sound.speak("Left")
+    elif string == "right":
+        ev3.Sound.speak("Right")
     values = []
     for sensor in sensors:
         values.append(0)
+    start = time()
     while True:
         positives = 0
         for i,sensor in enumerate(sensors):
@@ -19,7 +31,13 @@ def waitForTouch(sensors):
             if values[i] > 0:
                 positives += 1
         if positives == len(sensors):
-            return
+            end = time()
+            index = 0
+            x = str(end-start)
+            for i,c in enumerate(x):
+               if c ==".":
+                  index = i
+            return (x[:index+3])
 
 """
 Function that sets all the motors to the position they initially were in.
