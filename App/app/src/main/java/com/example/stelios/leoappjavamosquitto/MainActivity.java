@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        lista = new ArrayList<String>();
+        //lista = new ArrayList<String>();
         Parse.initialize(this);
         ParseInstallation.getCurrentInstallation().saveInBackground();
         //getActionBar().setTitle(Html.fromHtml("<font color='#0D8BD3'>LeoApp</font>"));
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
             msg3 = new MqttMessage(b3);
 
             String stringMsg4 = new String ("4");
-            byte[] b4 = stringMsg3.getBytes();
+            byte[] b4 = stringMsg4.getBytes();
             msg4 = new MqttMessage(b4);
 
             String stringMsgc = new String ("-1");
@@ -107,6 +107,11 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
             msgCancel = new MqttMessage(bc);
 
             client.subscribe("topic/android/dt");
+
+            Context context = getApplicationContext();
+            CharSequence text = "Connected!";
+            int duration = Toast.LENGTH_SHORT;
+            Toast.makeText(context, text, duration).show();
 
         } catch (MqttException e) {
             e.printStackTrace();
@@ -171,17 +176,20 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         } catch (MqttException e) {
             e.printStackTrace();
         }
-    }
 
-    public void SeeResult(View view) {
-        Intent intent= new Intent(MainActivity.this,ResultsActivity.class);
-        intent.putExtra("data", (ArrayList<String>) lista);
-        startActivity(intent);
-
+        Context context = getApplicationContext();
+        CharSequence text = "Connection terminated!";
+        int duration = Toast.LENGTH_SHORT;
+        Toast.makeText(context, text, duration).show();
     }
 
     @Override
     public void connectionLost(Throwable cause) {
+
+        Context context = getApplicationContext();
+        CharSequence text = "Connection Lost!";
+        int duration = Toast.LENGTH_SHORT;
+        Toast.makeText(context, text, duration).show();
 
     }
 
@@ -189,10 +197,9 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
     public void messageArrived(String topic, MqttMessage message) throws Exception {
 
         String a = message.toString();
-        a =a.substring(2);
-
+        a = a.substring(2);
         a = a.replaceAll("[\"\'\\[\\]]","");
-        lista.add(a);
+
 
         ParseObject parseObject = new ParseObject("LeoData");
         parseObject.put("data", a);
@@ -208,6 +215,19 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
                     Toast.makeText(context, e.getMessage(), duration).show();
                 }
             });
+
+        //Memory game or Robot says hello or Move Hands
+        if (a.substring(0, 1).equals("S") || a.substring(0, 1).equals("R") || a.length() < 6) {
+            Intent intent = new Intent(MainActivity.this, ResultsActivity.class);
+            intent.putExtra("data", a);
+            startActivity(intent);
+        }
+        //Long game
+        else {
+            Intent intent = new Intent(MainActivity.this, LongGameGraphActivity.class);
+            intent.putExtra("data", a);
+            startActivity(intent);
+        }
 
         System.out.println(a);
         System.out.println("**************************");

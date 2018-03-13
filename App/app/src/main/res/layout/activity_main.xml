@@ -9,22 +9,6 @@
 
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="28dp"
-        android:layout_marginTop="36dp"
-        android:background="@color/button"
-        android:elevation="0dp"
-        android:fontFamily="@font/annie_use_your_telescope"
-        android:onClick="SeeResult"
-        android:text="See Results"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button11" />
-
-    <Button
         android:id="@+id/button11"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
@@ -44,8 +28,9 @@
         android:id="@+id/button8"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="44dp"
         android:background="@color/button"
         android:elevation="0dp"
         android:fontFamily="@font/annie_use_your_telescope"
@@ -53,6 +38,7 @@
         android:text="Detect Face"
         android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button10" />
 
@@ -120,7 +106,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/button8" />
 
     <Button
         android:id="@+id/button9"

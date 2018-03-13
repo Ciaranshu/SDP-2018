@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -20,13 +21,25 @@ public class ResultsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.results);
-        listView = (ListView) findViewById( R.id.listid );
+        String data = (String)getIntent().getSerializableExtra("data");
 
-        ArrayList<String> lista = (ArrayList<String>)getIntent().getSerializableExtra("data");
-        listAdapter = new ArrayAdapter<String>(this, R.layout.results, lista);
+        if (data.substring(0, 1).equals("R")) {
+            final TextView display = findViewById(R.id.textView2);
+            display.setText(data);
+        }
 
-        // Fill in List View with songs already found
-        ArrayAdapter<String> songss = new ArrayAdapter<String>(ResultsActivity.this,android.R.layout.simple_dropdown_item_1line, lista);
-        listView.setAdapter(songss);
+        if(data.substring(0, 1).equals("S")) {
+            final TextView display = findViewById(R.id.textView2);
+            display.setText("Congratulations! Your accuracy is ");
+            final TextView score = findViewById(R.id.textView);
+            score.setText(data);
+        }
+
+        if(data.length() <=6) {
+            final TextView display = findViewById(R.id.textView2);
+            display.setText("Your response time was");
+            final TextView score = findViewById(R.id.textView);
+            score.setText(data + " " + "seconds");
+        }
     }
 }
