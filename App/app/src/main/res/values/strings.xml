@@ -15,4 +15,19 @@
     <string name="btn_detectFace">detect face</string>
     <string name="btn_seeResult">see result</string>
     <string name="btn_disconnect">disconnect</string>
+    <string name="title">Connection</string>
+    <string name="content">Please connect to Leo</string>
+    <string name="agree">Connect</string>
+    <string name="disagree">Exit Game</string>
+    <string name="please_wait">Please wait for connection</string>
+    <string name="progress_dialog">Connecting</string>
+    <string name="title_activity_main_side">MainActivitySide</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+
 </resources>

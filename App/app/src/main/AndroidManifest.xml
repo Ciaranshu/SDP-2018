@@ -16,7 +16,7 @@
         android:label="LeoApp"
         android:roundIcon="@drawable/sparta"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,7 +44,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".LongGameResultsActivity" />
-        <activity android:name=".LongGameGraphActivity"></activity>
+        <activity android:name=".LongGameGraphActivity" />
     </application>
 
 </manifest>
