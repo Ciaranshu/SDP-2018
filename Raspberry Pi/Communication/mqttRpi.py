@@ -6,14 +6,35 @@ import vlc
 import os
 import string
 import random
+import RPi.GPIO as GPIO
+import time
 
 #os.system("./")
+def lights(seq):
+    GPIO.cleanup()
+    GPIO.setmode(GPIO.BOARD)
+    # pins for the + of the circuit
+    pins = [12, 18, 36]
+    # the closest grounds are [14,20,34]
+    for digit in seq:
+        num = pins[int(digit)]
+        print(num)
+        GPIO.cleanup()
+        GPIO.setmode(GPIO.BOARD)
+        GPIO.setup(num,GPIO.OUT)
+        GPIO.output(num,1)
+        time.sleep(1)
+        GPIO.output(num,0)
+        time.sleep(1)
+
+#lights("222")
 
 pattern =""
 score =0
 
 clientPhone = mqtt.Client()
 clientPhone.connect("10.42.0.1", 1883, 60000)
+
 
 
 clientEV3 = mqtt.Client()
@@ -40,7 +61,6 @@ def on_message(client, userdata, msg):
     global score
     data = str(msg.payload)
     print(data)
-    
     ######### Phone -> Rpi -> EV3 #########
     
     if(data == "b'0'"):
@@ -55,6 +75,7 @@ def on_message(client, userdata, msg):
     elif(data == "b'3'"):
         # Memory game
         sequence_generator()
+        lights(pattern)
         clientEV3.publish("topic/ev3/dt", str("353,"+pattern))
         #p.play()        
     elif(data == "b'4'"):
@@ -113,4 +134,4 @@ def on_message(client, userdata, msg):
 
 clientPhone.on_connect = on_connect
 clientPhone.on_message = on_message
-clientPhone.loop_forever() 
+clientPhone.loop_forever()
