@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
     private boolean flag;
 
     // viewpager code
-    private View view1, view2;
+    private View view1, view2, view3, view4;
     private ViewPager viewPager;
     private List<View> viewList;
 
@@ -82,21 +82,24 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_side);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        lista = new ArrayList<String>();
+        Parse.initialize(this);
+        ParseInstallation.getCurrentInstallation().saveInBackground();
         //setSupportActionBar(toolbar);
-//        View decorView = getWindow().getDecorView();
-//        // Hide the status bar.
-//        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-//        decorView.setSystemUiVisibility(uiOptions);
 
         // Viewpager code
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         LayoutInflater inflater=getLayoutInflater();
         view1 = inflater.inflate(R.layout.content_main_activity_side, null);
-        view2 = inflater.inflate(R.layout.activity_long_game_graph,null);
+        view2 = inflater.inflate(R.layout.memory_game_layout,null);
+        view3 = inflater.inflate(R.layout.reaction_game_layout,null);
+        view4 = inflater.inflate(R.layout.face_detection_layout,null);
 
         viewList = new ArrayList<View>();
         viewList.add(view1);
         viewList.add(view2);
+        viewList.add(view3);
+        viewList.add(view4);
 
 
         PagerAdapter pagerAdapter = new PagerAdapter() {
@@ -141,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Sent patient information", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -223,11 +226,15 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
 
         if (id == R.id.nav_basic_game) {
             // Handle the camera action
+            viewPager.setCurrentItem(0,true);
         } else if (id == R.id.nav_memory_game) {
+            viewPager.setCurrentItem(1,true);
 
         } else if (id == R.id.nav_reaction_game) {
+            viewPager.setCurrentItem(2,true);
 
         } else if (id == R.id.nav_detect_face) {
+            viewPager.setCurrentItem(3,true);
 
         } else if (id == R.id.action_settings) {
 
@@ -238,11 +245,11 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         return true;
     }
 
-    public boolean createConnection() {
+    public void createConnection() {
 
         // Setting timeout Interval for connection
         timeOut = new MqttConnectOptions();
-        timeOut.setKeepAliveInterval(60);
+        timeOut.setKeepAliveInterval(600000);
 
         try {
             //"tcp://10.42.0.1:1883"
@@ -283,8 +290,8 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
             int duration = Toast.LENGTH_SHORT;
             Toast.makeText(context, text, duration).show();
 
-            flag = true;
-            return flag;
+//            flag = true;
+//            return flag;
 
         } catch (MqttException e) {
             e.printStackTrace();
@@ -292,7 +299,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
             CharSequence text = "Did not connect!";
             int duration = Toast.LENGTH_SHORT;
             Toast.makeText(context, text, duration).show();
-            return flag;
+//            return flag;
         }
 
     }
@@ -363,6 +370,13 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
 
     }
 
+    public void SeeResult(View view) {
+        Intent intent= new Intent(MainActivity.this,ResultsActivity.class);
+        intent.putExtra("data", (ArrayList<String>) lista);
+        startActivity(intent);
+
+    }
+
     @Override
     public void connectionLost(Throwable cause) {
 
@@ -371,7 +385,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         int duration = Toast.LENGTH_SHORT;
         Toast.makeText(context, text, duration).show();
 
-        flag = false;
+//        flag = false;
 
 
     }
@@ -382,6 +396,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         String a = message.toString();
         a = a.substring(2);
         a = a.replaceAll("[\"\'\\[\\]]","");
+        lista.add(a);
 
 
         ParseObject parseObject = new ParseObject("LeoData");

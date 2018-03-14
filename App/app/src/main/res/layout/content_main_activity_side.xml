@@ -57,8 +57,8 @@
                                 android:layout_height="fill_parent"
                                 android:background="@drawable/button_round"
                                 android:fontFamily="@font/carter_one"
-                                android:onClick="StartGameOne"
-                                android:text="@string/btn_moveHand"
+                                android:onClick="StartGameTwo"
+                                android:text="@string/btn_bg_g1"
                                 android:textSize="25sp"
                                 android:textStyle="bold"
                                 android:textColor="#FFFFFF"/>
@@ -73,13 +73,14 @@
                             android:layout_marginBottom="5dp" >
 
                             <Button
+                                android:backgroundTint="#D3D3D3"
+                                android:enabled="false"
                                 android:id="@+id/btn2"
                                 android:layout_width="fill_parent"
                                 android:layout_height="fill_parent"
                                 android:background="@drawable/button_round"
                                 android:fontFamily="@font/carter_one"
-                                android:onClick="StartGameTwo"
-                                android:text="@string/btn_sayHello"
+                                android:text="@string/btn_bg_g2"
                                 android:textSize="25sp"
                                 android:textStyle="bold"
                                 android:textColor="#FFFFFF"/>
@@ -103,13 +104,14 @@
                             android:layout_marginBottom="5dp" >
 
                             <Button
+                                android:backgroundTint="#D3D3D3"
+                                android:enabled="false"
                                 android:id="@+id/btn3"
                                 android:layout_width="fill_parent"
                                 android:layout_height="fill_parent"
                                 android:background="@drawable/button_round"
                                 android:fontFamily="@font/carter_one"
-                                android:onClick="StartGameThree"
-                                android:text="@string/btn_longGame"
+                                android:text="@string/btn_bg_g3"
                                 android:textSize="25sp"
                                 android:textStyle="bold"
                                 android:textColor="#FFFFFF"/>
@@ -125,13 +127,14 @@
                             android:layout_marginTop="5dp" >
 
                             <Button
+                                android:backgroundTint="#D3D3D3"
+                                android:enabled="false"
                                 android:id="@+id/btn4"
                                 android:layout_width="fill_parent"
                                 android:layout_height="fill_parent"
                                 android:background="@drawable/button_round"
                                 android:fontFamily="@font/carter_one"
-                                android:onClick="StartGameFour"
-                                android:text="@string/btn_memoryGame"
+                                android:text="@string/btn_bg_g4"
                                 android:textSize="25sp"
                                 android:textStyle="bold"
                                 android:textColor="#FFFFFF"/>
@@ -154,13 +157,14 @@
                             android:layout_marginTop="5dp" >
 
                             <Button
+                                android:backgroundTint="#D3D3D3"
+                                android:enabled="false"
                                 android:id="@+id/btn5"
                                 android:layout_width="fill_parent"
                                 android:layout_height="fill_parent"
                                 android:background="@drawable/button_round"
                                 android:fontFamily="@font/carter_one"
-                                android:onClick="StartFaceDetection"
-                                android:text="@string/btn_detectFace"
+                                android:text="@string/btn_bg_g5"
                                 android:textSize="25sp"
                                 android:textStyle="bold"
                                 android:textColor="#FFFFFF"/>
@@ -175,13 +179,14 @@
                             android:layout_marginTop="5dp" >
 
                             <Button
+                                android:backgroundTint="#D3D3D3"
+                                android:enabled="false"
                                 android:id="@+id/btn6"
                                 android:layout_width="fill_parent"
                                 android:layout_height="fill_parent"
                                 android:background="@drawable/button_round"
                                 android:fontFamily="@font/carter_one"
-                                android:onClick="StopGame"
-                                android:text="@string/disagree"
+                                android:text="@string/btn_bg_g6"
                                 android:textSize="25sp"
                                 android:textStyle="bold"
                                 android:textColor="#FFFFFF"/>
