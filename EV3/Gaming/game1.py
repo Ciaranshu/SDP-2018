@@ -68,11 +68,11 @@ def move2():
 def press(sequence):
     lenSeq = len(sequence)
     
-    print("Come play with me!")
+    ev3.Sound.speak("Ready!")
     rTouch = ev3.TouchSensor(ev3.INPUT_1)
     lTouch = ev3.TouchSensor(ev3.INPUT_2)
     cTouch = ev3.TouchSensor(ev3.INPUT_3)
-    score =0 
+    score = 0 
     buttons = [rTouch, lTouch, cTouch]
     while (len(sequence) > 0):
         nextButton = int(sequence[0])
@@ -82,7 +82,7 @@ def press(sequence):
                if (not doneAction):
                    if ( i == nextButton ):
                        sequence = sequence[1:]
-                       print("Ah")
+                       #print("Ah")
                        score+=1
                    else:
                        print("Mistakes have been done")
@@ -90,9 +90,10 @@ def press(sequence):
                        client2.publish("topic/rpi/dt",str("memory: " + str(score)))
                        return False
                doneAction = True
-    print("Orgasm")
+    # print("Orgasm")
     # Sends a successful completion of the current game to rpi
     client2.publish("topic/rpi/dt",str("memory: " + "100")) 
+    ev3.Sound.speak("CORRECT")
     return True
-#press("012")
+press("222")
 #press(' '.join(['2' * 100]))
