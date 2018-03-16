@@ -49,11 +49,7 @@
     <string name="btn_mg_g3">memory game easy</string>
     <string name="btn_mg_g4">memory game normal</string>
     <string name="btn_mg_g5">memory game hard</string>
-<<<<<<< HEAD
-    <string name="btn_mg_g6">memory game veryhard</string>
-=======
     <string name="btn_mg_g6">memory game very hard</string>
->>>>>>> ffbca6dbae2492279114f61f7e79450fe7ce73a9
 
     <!--string for reaction game tab not useful-->
     <string name="btn_rg_g1">reaction game 1</string>
