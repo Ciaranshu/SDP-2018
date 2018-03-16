@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
 
 
 
-        MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(this)
+        final MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(this)
                 .title(R.string.title)
                 .content(R.string.content)
                 .positiveText(R.string.agree)
@@ -249,7 +249,8 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
 
         // Setting timeout Interval for connection
         timeOut = new MqttConnectOptions();
-        timeOut.setKeepAliveInterval(600000);
+        timeOut.setKeepAliveInterval(60);
+        Log.d("Main", "Trying!");
 
         try {
             //"tcp://10.42.0.1:1883"
@@ -300,6 +301,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
             int duration = Toast.LENGTH_SHORT;
             Toast.makeText(context, text, duration).show();
 //            return flag;
+            Log.d("Main", "Can't!");
         }
 
     }
