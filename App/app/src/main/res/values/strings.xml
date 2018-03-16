@@ -44,12 +44,12 @@
     <string name="btn_bg_g6">spin</string>
 
     <!--string for memory game tab-->
-    <string name="btn_mg_g1">memory game 1</string>
-    <string name="btn_mg_g2">memory game 2</string>
-    <string name="btn_mg_g3">memory game 3</string>
-    <string name="btn_mg_g4">memory game 4</string>
-    <string name="btn_mg_g5">memory game 5</string>
-    <string name="btn_mg_g6">memory game 6</string>
+    <string name="btn_mg_g1">memory game prestige</string>
+    <string name="btn_mg_g2">memory game very easy</string>
+    <string name="btn_mg_g3">memory game easy</string>
+    <string name="btn_mg_g4">memory game normal</string>
+    <string name="btn_mg_g5">memory game hard</string>
+    <string name="btn_mg_g6">memory game veryhard</string>
 
     <!--string for reaction game tab not useful-->
     <string name="btn_rg_g1">reaction game 1</string>
