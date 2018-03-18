@@ -3,7 +3,7 @@ import numpy as np
 # from keras.models import load_model
 from statistics import mode
 
-import paho.mqtt.client as mqtt
+# import paho.mqtt.client as mqtt
 # 0 -goes back forever
 # 1 - goes forward forever
 # 2 - rotates clockwise forever
@@ -15,17 +15,25 @@ client = mqtt.Client()
 client.connect("10.42.0.180",1883,60)
 
 face_cascade =cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-cap = cv2.VideoCapture(1)
-cap.set(3,1280)
-cap.set(4,720)
-left_border = 950
-right_border = 420
-face_max = 830
-face_min = 750
+
+# Select default camera and set the size
+cap = cv2.VideoCapture(0)
+cap.set(3,320)
+cap.set(4,240)
+
+# Borders to determine the robot movement
+left_border = 240
+right_border = 80
+face_max = 230
+face_min = 180
+
+# Decide to turn left or right when the user move too fast
 turn_left = False
 turn_right = False
+
 # note: change to thread
-timer = 3    # time for the robot to move
+# Flags to decide at what time the robot should move
+timer = 5
 moveback_flag = 0;
 moveforward_flag = 0;
 moveleft_flag = 0;
@@ -63,13 +71,19 @@ while True:
 
         # biggestFace value will be 0 if face is not present
         if(biggestFace == 0):
-        #     print("Left is %s Right is %s" % (turn_left,turn_right))
-            # if(turn_left):
-            #     client.publish("topic/motor-A/dt", "2");
-            # elif(turn_right):
-            #     client.publish("topic/motor-A/dt", "3");
-            # else:
+
+            # This will decide to turn left or right
+            # when the user move too fast
+
+            print("Left is %s Right is %s" % (turn_left,turn_right))
+            if(turn_left):
+                client.publish("topic/motor-A/dt", "2");
+            elif(turn_right):
+                client.publish("topic/motor-A/dt", "3");
+            else:
             client.publish("topic/motor-A/dt", "4");
+
+
         # draw rectangle on closest face
         if (biggestFace > 0):
             cv2.rectangle(img, (_x,_y), (_x+_w, _y+_h), (255,0,0), 2)
@@ -80,7 +94,7 @@ while True:
 
             # check if face is out of the border
             if(centre_h > face_max):
-                # move robot back (note: change to threadg)
+                # move robot back when the user is too close (note: change to threadg)
                 moveforward_flag = 0
                 moveback_flag+=1
                 if(moveback_flag > timer):
@@ -88,7 +102,7 @@ while True:
                     client.publish("topic/motor-A/dt", "0");
                     moveback_flag = 0
             elif(centre_h < face_min):
-                # move robot forward (note: change to thread)
+                # move robot forward when the user is too far (note: change to thread)
                 moveback_flag = 0
                 moveforward_flag+=1
                 if(moveforward_flag > timer):
@@ -96,10 +110,9 @@ while True:
                     client.publish("topic/motor-A/dt", "1");
                     moveforward_flag = 0
             else:
-                # FaceBorder(centre_x)
-                # I'm lazy
+                # When the user is within teh distance to interact the robot
                 if(centre_x > left_border):
-                    # Rotate robot to left (note: change to thread)
+                    # Rotate robot to left when the user moves left (note: change to thread)
                     turn_left = True
                     turn_right = False
                     moveright_flag = 0
@@ -111,7 +124,7 @@ while True:
                         client.publish("topic/motor-A/dt", "3");
                         moveleft_flag = 0
                 elif(centre_x < right_border):
-                    # Rotate robot to right (note: change to thread)
+                    # Rotate robot to right when the user moves to the right(note: change to thread)
                     turn_right = True
                     turn_left = False
                     moveleft_flag = 0
