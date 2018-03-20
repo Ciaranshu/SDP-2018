@@ -41,8 +41,6 @@
             android:layout_marginBottom="5dp" >
 
             <Button
-                android:backgroundTint="#D3D3D3"
-                android:enabled="false"
                 android:id="@+id/btn_mg2"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
@@ -73,8 +71,6 @@
             android:layout_marginBottom="5dp" >
 
             <Button
-                android:backgroundTint="#D3D3D3"
-                android:enabled="false"
                 android:id="@+id/btn_mg3"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
@@ -97,8 +93,6 @@
             android:layout_marginTop="5dp" >
 
             <Button
-                android:backgroundTint="#D3D3D3"
-                android:enabled="false"
                 android:id="@+id/btn_mg4"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
@@ -128,8 +122,6 @@
             android:layout_marginTop="5dp" >
 
             <Button
-                android:backgroundTint="#D3D3D3"
-                android:enabled="false"
                 android:id="@+id/btn_mg5"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
@@ -151,8 +143,6 @@
             android:layout_marginTop="5dp" >
 
             <Button
-                android:backgroundTint="#D3D3D3"
-                android:enabled="false"
                 android:id="@+id/btn_mg6"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"

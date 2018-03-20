@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+from time import sleep
 # from keras.models import load_model
 from statistics import mode
 
@@ -11,8 +12,8 @@ from statistics import mode
 # 4 - stops any movement
 
 # This is the Publisher
-client = mqtt.Client()
-client.connect("10.42.0.180",1883,60)
+# client = mqtt.Client()
+# client.connect("10.42.0.180",1883,60)
 
 face_cascade =cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
@@ -20,6 +21,7 @@ face_cascade =cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 cap = cv2.VideoCapture(0)
 cap.set(3,320)
 cap.set(4,240)
+cap.set(cap, CV_CAP_PROP_FPS, 10)
 
 # Borders to determine the robot movement
 left_border = 240
@@ -50,6 +52,7 @@ moveright_flag = 0;
 """
 
 while True:
+    # sleep(0.1)
     biggestFace = 0
     _x = 0
     _y = 0
@@ -70,18 +73,18 @@ while True:
                 biggestFace = _w*_h
 
         # biggestFace value will be 0 if face is not present
-        if(biggestFace == 0):
-
-            # This will decide to turn left or right
-            # when the user move too fast
-
-            print("Left is %s Right is %s" % (turn_left,turn_right))
-            if(turn_left):
-                client.publish("topic/motor-A/dt", "2");
-            elif(turn_right):
-                client.publish("topic/motor-A/dt", "3");
-            else:
-            client.publish("topic/motor-A/dt", "4");
+        # if(biggestFace == 0):
+        #
+        #     # This will decide to turn left or right
+        #     # when the user move too fast
+        #
+        #     print("Left is %s Right is %s" % (turn_left,turn_right))
+        #     if(turn_left):
+        #         client.publish("topic/motor-A/dt", "2");
+        #     elif(turn_right):
+        #         client.publish("topic/motor-A/dt", "3");
+        #     else:
+        #     client.publish("topic/motor-A/dt", "4");
 
 
         # draw rectangle on closest face
@@ -99,7 +102,7 @@ while True:
                 moveback_flag+=1
                 if(moveback_flag > timer):
                     print("face too big")
-                    client.publish("topic/motor-A/dt", "0");
+                    # client.publish("topic/motor-A/dt", "0");
                     moveback_flag = 0
             elif(centre_h < face_min):
                 # move robot forward when the user is too far (note: change to thread)
@@ -107,7 +110,7 @@ while True:
                 moveforward_flag+=1
                 if(moveforward_flag > timer):
                     print("face too small")
-                    client.publish("topic/motor-A/dt", "1");
+                    # client.publish("topic/motor-A/dt", "1");
                     moveforward_flag = 0
             else:
                 # When the user is within teh distance to interact the robot
@@ -121,7 +124,7 @@ while True:
                     moveleft_flag+=1
                     if(moveleft_flag > timer):
                         print("out of left border")
-                        client.publish("topic/motor-A/dt", "3");
+                        # client.publish("topic/motor-A/dt", "3");
                         moveleft_flag = 0
                 elif(centre_x < right_border):
                     # Rotate robot to right when the user moves to the right(note: change to thread)
@@ -133,20 +136,20 @@ while True:
                     moveright_flag+=1
                     if(moveright_flag > timer):
                         print("out of right border")
-                        client.publish("topic/motor-A/dt", "2");
+                        # client.publish("topic/motor-A/dt", "2");
                         moveright_flag = 0
                 else:
                     print("face ok")
                     # reset turing to false
-                    client.publish("topic/motor-A/dt", "4");
+                    # client.publish("topic/motor-A/dt", "4");
                     turn_left = False
                     turn_right = False
 
 
-        # cv2.imshow('img', img)
-        # k = cv2.waitKey(30) & 0xff
-        # if k == 27:
-        #     break
+        cv2.imshow('img', img)
+        k = cv2.waitKey(30) & 0xff
+        if k == 27:
+            break
 
 client.disconnect();
 cap.release()
