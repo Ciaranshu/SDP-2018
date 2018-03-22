@@ -389,7 +389,6 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
 
 //        flag = false;
 
-
     }
 
     @Override
@@ -401,20 +400,65 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         lista.add(a);
 
 
-        ParseObject parseObject = new ParseObject("LeoData");
-        parseObject.put("data", a);
-        parseObject.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                Context context = getApplicationContext();
-                CharSequence text = "Saved on server successfully!";
-                int duration = Toast.LENGTH_LONG;
-                if (e == null)
-                    Toast.makeText(context, text, duration).show();
-                else
-                    Toast.makeText(context, e.getMessage(), duration).show();
+
+        if (a.substring(0, 1).equals("S")) {
+            ParseObject parseObject = new ParseObject("LeoData");
+            parseObject.put("score", a);
+            parseObject.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    Context context = getApplicationContext();
+                    CharSequence text = "Saved on server successfully!";
+                    int duration = Toast.LENGTH_LONG;
+                    if (e == null)
+                        Toast.makeText(context, text, duration).show();
+                    else
+                        Toast.makeText(context, e.getMessage(), duration).show();
                 }
             });
+        }
+
+        else if (a.substring(0, 1).equals("R")) {
+            Log.d("Robot", a);
+        }
+
+        else if (a.length() < 6) {
+            ParseObject parseObject = new ParseObject("LeoData");
+            parseObject.put("data", a);
+            parseObject.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    Context context = getApplicationContext();
+                    CharSequence text = "Saved on server successfully!";
+                    int duration = Toast.LENGTH_LONG;
+                    if (e == null)
+                        Toast.makeText(context, text, duration).show();
+                    else
+                        Toast.makeText(context, e.getMessage(), duration).show();
+                }
+            });
+        }
+
+        else {
+            String[] tokens = a.split(",\\s");
+            for (String obj:tokens) {
+                ParseObject parseObj = new ParseObject("LeoData");
+                parseObj.put("data", obj);
+                parseObj.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        Context context = getApplicationContext();
+                        CharSequence text = "Saved on server successfully!";
+                        int duration = Toast.LENGTH_LONG;
+                        if (e == null)
+                            Toast.makeText(context, text, duration).show();
+                        else
+                            Toast.makeText(context, e.getMessage(), duration).show();
+                    }
+                });
+            }
+        }
+
 
         //Memory game or Robot says hello or Move Hands
         if (a.substring(0, 1).equals("S") || a.substring(0, 1).equals("R") || a.length() < 6) {
