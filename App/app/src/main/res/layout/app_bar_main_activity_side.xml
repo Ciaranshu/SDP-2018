@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="60dp"
-        layout="@layout/content_main_activity_side"/>
+        layout="@layout/basic_game_layout"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
