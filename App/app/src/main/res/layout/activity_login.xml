@@ -71,7 +71,7 @@
         android:background="#FFFFFF"
         android:ems="10"
         android:inputType="textEmailAddress"
-        android:text="    Password"
+        android:text="   Password"
         android:textColor="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.745"
