@@ -12,8 +12,8 @@ from statistics import mode
 # 4 - stops any movement
 
 # This is the Publisher
-# client = mqtt.Client()
-# client.connect("10.42.0.180",1883,60)
+client = mqtt.Client()
+client.connect("10.42.0.180",1883,60)
 
 face_cascade =cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
@@ -23,8 +23,8 @@ cap.set(3,320)
 cap.set(4,240)
 
 # Borders to determine the robot movement
-left_border = 240
-right_border = 80
+left_border = 200
+right_border = 120
 face_max = 230
 face_min = 180
 
@@ -59,12 +59,6 @@ face_in_place_stabiliser = 10;
         # Rotate robot to right
         print("out of right border")
 """
-def resetAllFlags(left, right, forward, backward, reset):
-    moveback_flag = 0
-    moveforward_flag = 0
-    moveleft_flag = 0
-    moveright_flag = 0
-    return;
 
 while True:
     # sleep(0.2)
@@ -101,12 +95,12 @@ while True:
             # when the user move too fast
             if(no_face_timer > timer):
                 print("Left is %s Right is %s" % (turn_left,turn_right))
-                # if(turn_left):
-                #     client.publish("topic/motor-A/dt", "2");
-                # elif(turn_right):
-                #     client.publish("topic/motor-A/dt", "3");
-                # else:
-                #     client.publish("topic/motor-A/dt", "4");
+                if(turn_left):
+                    client.publish("topic/motor-A/dt", "2");
+                elif(turn_right):
+                    client.publish("topic/motor-A/dt", "3");
+                else:
+                    client.publish("topic/motor-A/dt", "4");
                 no_face_timer = 0
 
         # draw rectangle on closest face
@@ -126,7 +120,7 @@ while True:
                 face_in_place_stabiliser-=1
                 if(moveback_flag > timer and face_in_place_stabiliser <= 0):
                     print("face too big")
-                    # client.publish("topic/motor-A/dt", "0");
+                    client.publish("topic/motor-A/dt", "0");
                     moveback_flag = 0
 
                 # Reset other flags
@@ -140,9 +134,9 @@ while True:
                 face_in_place_stabiliser-=1
                 if(moveforward_flag > timer and face_in_place_stabiliser <= 0):
                     print("face too small")
-                    # client.publish("topic/motor-A/dt", "1");
+                    client.publish("topic/motor-A/dt", "1");
                     moveforward_flag = 0
-                    print("face_in_place_stabiliser is: %i"  %face_in_place_stabiliser)
+                    # print("face_in_place_stabiliser is: %i"  %face_in_place_stabiliser)
 
                 # Reset other flags
                 moveback_flag = 0
@@ -159,7 +153,7 @@ while True:
                     face_in_place_stabiliser-=1
                     if(moveleft_flag > timer and face_in_place_stabiliser <= 0):
                         print("out of left border")
-                        # client.publish("topic/motor-A/dt", "3");
+                        client.publish("topic/motor-A/dt", "3");
                         moveleft_flag = 0
 
                     # Reset other flags
@@ -175,7 +169,7 @@ while True:
                     face_in_place_stabiliser-=1
                     if(moveright_flag > timer and face_in_place_stabiliser <= 0):
                         print("out of right border")
-                        # client.publish("topic/motor-A/dt", "2");
+                        client.publish("topic/motor-A/dt", "2");
                         moveright_flag = 0
 
                     # Reset other flags
@@ -186,8 +180,8 @@ while True:
                 else:
                     print("face ok")
                     face_in_place_stabiliser = 10;
-                    print("face_in_place_stabiliser is: %i"  %face_in_place_stabiliser)
-                    # client.publish("topic/motor-A/dt", "4");
+                    # print("face_in_place_stabiliser is: %i"  %face_in_place_stabiliser)
+                    client.publish("topic/motor-A/dt", "4");
 
                     # reset turing and all the flags
                     turn_left = False
@@ -198,10 +192,10 @@ while True:
                     moveright_flag = 0
 
 
-        cv2.imshow('img', img)
-        k = cv2.waitKey(30) & 0xff
-        if k == 27:
-            break
+        # cv2.imshow('img', img)
+        # k = cv2.waitKey(30) & 0xff
+        # if k == 27:
+        #     break
 
 client.disconnect();
 cap.release()
