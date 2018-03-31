@@ -70,7 +70,7 @@
         android:layout_marginTop="7dp"
         android:background="#FFFFFF"
         android:ems="10"
-        android:inputType="textEmailAddress"
+        android:inputType="textPassword"
         android:text="   Password"
         android:textColor="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="parent"

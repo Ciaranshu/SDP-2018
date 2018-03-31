@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_main_side);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         lista = new ArrayList<String>();
         Parse.initialize(this);
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         // Viewpager code
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         LayoutInflater inflater=getLayoutInflater();
-        view1 = inflater.inflate(R.layout.basic_game_layout, null);
+        view1 = inflater.inflate(R.layout.content_main_activity_side, null);
         view2 = inflater.inflate(R.layout.memory_game_layout,null);
         view3 = inflater.inflate(R.layout.reaction_game_layout,null);
         view4 = inflater.inflate(R.layout.face_detection_layout,null);
