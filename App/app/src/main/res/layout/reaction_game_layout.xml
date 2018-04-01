@@ -25,11 +25,11 @@
                 android:layout_height="fill_parent"
                 android:background="@drawable/button_round"
                 android:fontFamily="@font/carter_one"
-                android:onClick="StartGameOne"
+                android:onClick="Reaction1"
                 android:text="@string/btn_rg_g1"
+                android:textColor="#FFFFFF"
                 android:textSize="25sp"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF"/>
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -46,11 +46,11 @@
                 android:layout_height="fill_parent"
                 android:background="@drawable/button_round"
                 android:fontFamily="@font/carter_one"
-                android:onClick="StartGameThree"
+                android:onClick="Reaction2"
                 android:text="@string/btn_rg_g2"
+                android:textColor="#FFFFFF"
                 android:textSize="25sp"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF" />
+                android:textStyle="bold" />
         </LinearLayout>
 
     </LinearLayout>
@@ -76,11 +76,11 @@
                 android:layout_height="fill_parent"
                 android:background="@drawable/button_round"
                 android:fontFamily="@font/carter_one"
-                android:onClick="StartGameTwo"
+                android:onClick="Reaction3"
                 android:text="@string/btn_rg_g3"
+                android:textColor="#FFFFFF"
                 android:textSize="25sp"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF"/>
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -98,11 +98,11 @@
                 android:layout_height="fill_parent"
                 android:background="@drawable/button_round"
                 android:fontFamily="@font/carter_one"
-                android:onClick="StartGameTwo"
+                android:onClick="Reaction4"
                 android:text="@string/btn_rg_g4"
+                android:textColor="#FFFFFF"
                 android:textSize="25sp"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF" />
+                android:textStyle="bold" />
         </LinearLayout>
 
     </LinearLayout>
@@ -127,11 +127,11 @@
                 android:layout_height="fill_parent"
                 android:background="@drawable/button_round"
                 android:fontFamily="@font/carter_one"
-                android:onClick="StartGameTwo"
+                android:onClick="Reaction5"
                 android:text="@string/btn_rg_g5"
+                android:textColor="#FFFFFF"
                 android:textSize="25sp"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF" />
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout

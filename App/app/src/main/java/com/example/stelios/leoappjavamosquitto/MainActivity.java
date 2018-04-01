@@ -49,6 +49,14 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
     private MqttMessage msg2;
     private MqttMessage msg3;
     private MqttMessage msg4;
+    private MqttMessage msg5;
+    private MqttMessage msg6;
+    private MqttMessage msg7;
+    private MqttMessage msg8;
+    private MqttMessage msg9;
+    private MqttMessage msg10;
+    private MqttMessage msg11;
+    private MqttMessage msg12;
     private MqttMessage msgCancel;
     private ArrayList<String> lista;
     private MqttConnectOptions timeOut;
@@ -232,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
 
         // Setting timeout Interval for connection
         timeOut = new MqttConnectOptions();
-        timeOut.setKeepAliveInterval(60);
+        timeOut.setKeepAliveInterval(60000); // was 60
         Log.d("Main", "Trying!");
 
         try {
@@ -243,25 +251,71 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
             // Connect client with Mqqt option timeOut initialised above
             client.connect(timeOut);
 
+            // Reaction Game 1 Demo
             String stringMsg0 = new String ("0");
             byte[] b0 = stringMsg0.getBytes();
             msg0 = new MqttMessage(b0);
 
+            // Say Hello
             String stringMsg1 = new String ("1");
             byte[] b1 = stringMsg1.getBytes();
             msg1 = new MqttMessage(b1);
 
+            // Reaction Game 2
             String stringMsg2 = new String ("2");
             byte[] b2 = stringMsg2.getBytes();
             msg2 = new MqttMessage(b2);
 
+            // Reaction Game 3
             String stringMsg3 = new String ("3");
             byte[] b3 = stringMsg3.getBytes();
             msg3 = new MqttMessage(b3);
 
+            // Reaction Game 4
             String stringMsg4 = new String ("4");
             byte[] b4 = stringMsg4.getBytes();
             msg4 = new MqttMessage(b4);
+
+            // Reaction Game 5
+            String stringMsg5 = new String ("5");
+            byte[] b5 = stringMsg5.getBytes();
+            msg5 = new MqttMessage(b5);
+
+            // Start Detect
+            String stringMsg6 = new String ("6");
+            byte[] b6 = stringMsg6.getBytes();
+            msg6 = new MqttMessage(b6);
+
+            // Memory Game Prestige
+            String stringMsg7 = new String ("7");
+            byte[] b7 = stringMsg7.getBytes();
+            msg7 = new MqttMessage(b7);
+
+            // Memory Game Very Easy
+            String stringMsg8 = new String ("8");
+            byte[] b8 = stringMsg8.getBytes();
+            msg8 = new MqttMessage(b8);
+
+            // Memory Game Easy
+            String stringMsg9 = new String ("9");
+            byte[] b9 = stringMsg9.getBytes();
+            msg9 = new MqttMessage(b9);
+
+            // Memory Game Normal
+            String stringMsg10 = new String ("10");
+            byte[] b10 = stringMsg10.getBytes();
+            msg10 = new MqttMessage(b10);
+
+            // Memory Game Hard
+            String stringMsg11 = new String ("11");
+            byte[] b11 = stringMsg11.getBytes();
+            msg11 = new MqttMessage(b11);
+
+            // Memory Game Very Hard
+            String stringMsg12 = new String ("12");
+            byte[] b12 = stringMsg12.getBytes();
+            msg12 = new MqttMessage(b12);
+
 
             String stringMsgc = new String ("-1");
             byte[] bc = stringMsgc.getBytes();
@@ -289,7 +343,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
 
     }
 
-    public void StartGameOne(View view) {
+    public void Reaction1(View view) {
         try {
             client.publish("topic/rpi/dt",msg0);
         } catch (MqttPersistenceException e) {
@@ -299,7 +353,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         }
     }
 
-    public void StartGameTwo(View view) {
+    public void SayHello(View view) {
         try {
             client.publish("topic/rpi/dt",msg1);
         } catch (MqttPersistenceException e) {
@@ -309,7 +363,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         }
     }
 
-    public void StartGameThree(View view) {
+    public void Reaction2 (View view) {
         try {
             client.publish("topic/rpi/dt",msg2);
         } catch (MqttPersistenceException e) {
@@ -319,7 +373,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         }
     }
 
-    public void StartGameFour(View view) {
+    public void Reaction3(View view) {
         try {
             client.publish("topic/rpi/dt",msg3);
         } catch (MqttPersistenceException e) {
@@ -329,9 +383,89 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         }
     }
 
-    public void StartFaceDetection(View view) {
+    public void Reaction4(View view) {
         try {
             client.publish("topic/rpi/dt",msg4);
+        } catch (MqttPersistenceException e) {
+            e.printStackTrace();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void Reaction5(View view) {
+        try {
+            client.publish("topic/rpi/dt",msg5);
+        } catch (MqttPersistenceException e) {
+            e.printStackTrace();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void FaceDetect(View view) {
+        try {
+            client.publish("topic/rpi/dt",msg6);
+        } catch (MqttPersistenceException e) {
+            e.printStackTrace();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void MemoryPrestige(View view) {
+        try {
+            client.publish("topic/rpi/dt",msg7);
+        } catch (MqttPersistenceException e) {
+            e.printStackTrace();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void MemoryVeryEasy(View view) {
+        try {
+            client.publish("topic/rpi/dt",msg8);
+        } catch (MqttPersistenceException e) {
+            e.printStackTrace();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void MemoryEasy(View view) {
+        try {
+            client.publish("topic/rpi/dt",msg9);
+        } catch (MqttPersistenceException e) {
+            e.printStackTrace();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void MemoryNormal(View view) {
+        try {
+            client.publish("topic/rpi/dt",msg10);
+        } catch (MqttPersistenceException e) {
+            e.printStackTrace();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void MemoryHard(View view) {
+        try {
+            client.publish("topic/rpi/dt",msg11);
+        } catch (MqttPersistenceException e) {
+            e.printStackTrace();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void MemoryVeryHard(View view) {
+        try {
+            client.publish("topic/rpi/dt",msg12);
         } catch (MqttPersistenceException e) {
             e.printStackTrace();
         } catch (MqttException e) {
