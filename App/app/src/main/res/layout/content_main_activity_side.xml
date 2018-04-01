@@ -57,7 +57,7 @@
                                 android:layout_height="fill_parent"
                                 android:background="@drawable/button_round"
                                 android:fontFamily="@font/carter_one"
-                                android:onClick="StartGameTwo"
+                                android:onClick="SayHello"
                                 android:text="@string/btn_bg_g1"
                                 android:textSize="25sp"
                                 android:textStyle="bold"

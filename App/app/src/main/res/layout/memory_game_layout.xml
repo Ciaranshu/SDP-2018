@@ -25,11 +25,11 @@
                 android:layout_height="fill_parent"
                 android:background="@drawable/button_round"
                 android:fontFamily="@font/carter_one"
-                android:onClick="StartGameFour"
+                android:onClick="MemoryPrestige"
                 android:text="@string/btn_mg_g1"
+                android:textColor="#FFFFFF"
                 android:textSize="25sp"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF"/>
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -46,11 +46,11 @@
                 android:layout_height="fill_parent"
                 android:background="@drawable/button_round"
                 android:fontFamily="@font/carter_one"
-                android:onClick="StartGameTwo"
+                android:onClick="MemoryVeryEasy"
                 android:text="@string/btn_mg_g2"
+                android:textColor="#FFFFFF"
                 android:textSize="25sp"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF" />
+                android:textStyle="bold" />
         </LinearLayout>
 
     </LinearLayout>
@@ -76,11 +76,11 @@
                 android:layout_height="fill_parent"
                 android:background="@drawable/button_round"
                 android:fontFamily="@font/carter_one"
-                android:onClick="StartGameTwo"
+                android:onClick="MemoryEasy"
                 android:text="@string/btn_mg_g3"
+                android:textColor="#FFFFFF"
                 android:textSize="25sp"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF"/>
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -98,11 +98,11 @@
                 android:layout_height="fill_parent"
                 android:background="@drawable/button_round"
                 android:fontFamily="@font/carter_one"
-                android:onClick="StartGameTwo"
+                android:onClick="MemoryNormal"
                 android:text="@string/btn_mg_g4"
+                android:textColor="#FFFFFF"
                 android:textSize="25sp"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF" />
+                android:textStyle="bold" />
         </LinearLayout>
 
     </LinearLayout>
@@ -127,11 +127,11 @@
                 android:layout_height="fill_parent"
                 android:background="@drawable/button_round"
                 android:fontFamily="@font/carter_one"
-                android:onClick="StartGameTwo"
+                android:onClick="MemoryHard"
                 android:text="@string/btn_mg_g5"
+                android:textColor="#FFFFFF"
                 android:textSize="25sp"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF" />
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -148,11 +148,11 @@
                 android:layout_height="fill_parent"
                 android:background="@drawable/button_round"
                 android:fontFamily="@font/carter_one"
-                android:onClick="StartGameTwo"
+                android:onClick="MemoryVeryHard"
                 android:text="@string/btn_mg_g6"
+                android:textColor="#FFFFFF"
                 android:textSize="25sp"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF" />
+                android:textStyle="bold" />
         </LinearLayout>
 
     </LinearLayout>

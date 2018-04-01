@@ -30,6 +30,7 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.eclipse.paho.client.mqttv3.*;
@@ -49,6 +50,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.ParseInstallation;
 import com.parse.SaveCallback;
@@ -66,13 +68,27 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
     private MqttMessage msg2;
     private MqttMessage msg3;
     private MqttMessage msg4;
+    private MqttMessage msg5;
+    private MqttMessage msg6;
+    private MqttMessage msg7;
+    private MqttMessage msg8;
+    private MqttMessage msg9;
+    private MqttMessage msg10;
+    private MqttMessage msg11;
+    private MqttMessage msg12;
     private MqttMessage msgCancel;
-    private ArrayList<String> lista;
+    private ArrayList<Double> listTimes;
+    private ArrayList<Double> times;
+    private ArrayList<Integer> listScores;
+    private ArrayList<Integer> scores;
+    private List<ParseObject> objTimes;
+    private List<ParseObject> objScores;
     private MqttConnectOptions timeOut;
+    private int netScore;
     private boolean flag;
 
     // viewpager code
-    private View view1, view2, view3, view4;
+    private View view1, view2, view3, view4, view5;
     private ViewPager viewPager;
     private List<View> viewList;
 
@@ -82,7 +98,9 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_side);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        lista = new ArrayList<String>();
+        listScores = new ArrayList<>();
+        listTimes = new ArrayList<>();
+        netScore = 0;
         Parse.initialize(this);
         ParseInstallation.getCurrentInstallation().saveInBackground();
         //setSupportActionBar(toolbar);
@@ -94,12 +112,14 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         view2 = inflater.inflate(R.layout.memory_game_layout,null);
         view3 = inflater.inflate(R.layout.reaction_game_layout,null);
         view4 = inflater.inflate(R.layout.face_detection_layout,null);
+        view5 = inflater.inflate(R.layout.data_analysis, null);
 
         viewList = new ArrayList<View>();
         viewList.add(view1);
         viewList.add(view2);
         viewList.add(view3);
         viewList.add(view4);
+        viewList.add(view5);
 
 
         PagerAdapter pagerAdapter = new PagerAdapter() {
@@ -236,8 +256,8 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         } else if (id == R.id.nav_detect_face) {
             viewPager.setCurrentItem(3,true);
 
-        } else if (id == R.id.action_settings) {
-
+        } else if (id == R.id.nav_data_analysis) {
+            viewPager.setCurrentItem(4, true);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -249,7 +269,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
 
         // Setting timeout Interval for connection
         timeOut = new MqttConnectOptions();
-        timeOut.setKeepAliveInterval(60);
+        timeOut.setKeepAliveInterval(60000);
         Log.d("Main", "Trying!");
 
         try {
@@ -260,25 +280,70 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
             // Connect client with Mqqt option timeOut initialised above
             client.connect(timeOut);
 
+            // Reaction Game 1 Demo
             String stringMsg0 = new String ("0");
             byte[] b0 = stringMsg0.getBytes();
             msg0 = new MqttMessage(b0);
 
+            // Say Hello
             String stringMsg1 = new String ("1");
             byte[] b1 = stringMsg1.getBytes();
             msg1 = new MqttMessage(b1);
 
+            // Reaction Game 2
             String stringMsg2 = new String ("2");
             byte[] b2 = stringMsg2.getBytes();
             msg2 = new MqttMessage(b2);
 
+            // Reaction Game 3
             String stringMsg3 = new String ("3");
             byte[] b3 = stringMsg3.getBytes();
             msg3 = new MqttMessage(b3);
 
+            // Reaction Game 4
             String stringMsg4 = new String ("4");
             byte[] b4 = stringMsg4.getBytes();
             msg4 = new MqttMessage(b4);
+
+            // Reaction Game 5
+            String stringMsg5 = new String ("5");
+            byte[] b5 = stringMsg5.getBytes();
+            msg5 = new MqttMessage(b5);
+
+            // Start Detect
+            String stringMsg6 = new String ("6");
+            byte[] b6 = stringMsg6.getBytes();
+            msg6 = new MqttMessage(b6);
+
+            // Memory Game Prestige
+            String stringMsg7 = new String ("7");
+            byte[] b7 = stringMsg7.getBytes();
+            msg7 = new MqttMessage(b7);
+
+            // Memory Game Very Easy
+            String stringMsg8 = new String ("8");
+            byte[] b8 = stringMsg8.getBytes();
+            msg8 = new MqttMessage(b8);
+
+            // Memory Game Easy
+            String stringMsg9 = new String ("9");
+            byte[] b9 = stringMsg9.getBytes();
+            msg9 = new MqttMessage(b9);
+
+            // Memory Game Normal
+            String stringMsg10 = new String ("10");
+            byte[] b10 = stringMsg10.getBytes();
+            msg10 = new MqttMessage(b10);
+
+            // Memory Game Hard
+            String stringMsg11 = new String ("11");
+            byte[] b11 = stringMsg11.getBytes();
+            msg11 = new MqttMessage(b11);
+
+            // Memory Game Very Hard
+            String stringMsg12 = new String ("12");
+            byte[] b12 = stringMsg12.getBytes();
+            msg12 = new MqttMessage(b12);
 
             String stringMsgc = new String ("-1");
             byte[] bc = stringMsgc.getBytes();
@@ -306,7 +371,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
 
     }
 
-    public void StartGameOne(View view) {
+    public void Reaction1(View view) {
         try {
             client.publish("topic/rpi/dt",msg0);
         } catch (MqttPersistenceException e) {
@@ -316,7 +381,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         }
     }
 
-    public void StartGameTwo(View view) {
+    public void SayHello(View view) {
         try {
             client.publish("topic/rpi/dt",msg1);
         } catch (MqttPersistenceException e) {
@@ -326,7 +391,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         }
     }
 
-    public void StartGameThree(View view) {
+    public void Reaction2(View view) {
         try {
             client.publish("topic/rpi/dt",msg2);
         } catch (MqttPersistenceException e) {
@@ -336,7 +401,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         }
     }
 
-    public void StartGameFour(View view) {
+    public void Reaction3(View view) {
         try {
             client.publish("topic/rpi/dt",msg3);
         } catch (MqttPersistenceException e) {
@@ -346,9 +411,89 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         }
     }
 
-    public void StartFaceDetection(View view) {
+    public void Reaction4(View view) {
         try {
             client.publish("topic/rpi/dt",msg4);
+        } catch (MqttPersistenceException e) {
+            e.printStackTrace();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void Reaction5(View view) {
+        try {
+            client.publish("topic/rpi/dt",msg5);
+        } catch (MqttPersistenceException e) {
+            e.printStackTrace();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void FaceDetect(View view) {
+        try {
+            client.publish("topic/rpi/dt",msg6);
+        } catch (MqttPersistenceException e) {
+            e.printStackTrace();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void MemoryPrestige(View view) {
+        try {
+            client.publish("topic/rpi/dt",msg7);
+        } catch (MqttPersistenceException e) {
+            e.printStackTrace();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void MemoryVeryEasy(View view) {
+        try {
+            client.publish("topic/rpi/dt",msg8);
+        } catch (MqttPersistenceException e) {
+            e.printStackTrace();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void MemoryEasy(View view) {
+        try {
+            client.publish("topic/rpi/dt",msg9);
+        } catch (MqttPersistenceException e) {
+            e.printStackTrace();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void MemoryNormal(View view) {
+        try {
+            client.publish("topic/rpi/dt",msg10);
+        } catch (MqttPersistenceException e) {
+            e.printStackTrace();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void MemoryHard(View view) {
+        try {
+            client.publish("topic/rpi/dt",msg11);
+        } catch (MqttPersistenceException e) {
+            e.printStackTrace();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void MemoryVeryHard(View view) {
+        try {
+            client.publish("topic/rpi/dt",msg12);
         } catch (MqttPersistenceException e) {
             e.printStackTrace();
         } catch (MqttException e) {
@@ -373,9 +518,84 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
     }
 
     public void SeeResult(View view) {
-        Intent intent= new Intent(MainActivity.this,ResultsActivity.class);
+        /*Intent intent= new Intent(MainActivity.this,ResultsActivity.class);
         intent.putExtra("data", (ArrayList<String>) lista);
-        startActivity(intent);
+        startActivity(intent);*/
+
+
+
+    }
+
+    public void AnalyseData(View view) {
+
+        try {
+            ParseQuery queryData = ParseQuery.getQuery("LeoData");
+            queryData.whereExists("data");
+            objTimes = queryData.find();
+        } catch (com.parse.ParseException e) {
+            e.printStackTrace();
+        }
+        try {
+            ParseQuery queryScore = ParseQuery.getQuery("LeoData");
+            queryScore.whereExists("score");
+            objScores = queryScore.find();
+        } catch (com.parse.ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        int netScore = 0;
+        double netTime = 0;
+
+        for (ParseObject obj : objTimes) {
+            times.add(Double.parseDouble(obj.getString("data")));
+        }
+        for (ParseObject obj: objScores) {
+            scores.add(Integer.parseInt(obj.getString("score")));
+        }
+
+        for (double time: times){
+            netTime = netTime + time;
+        }
+        netTime = netTime/times.size();
+
+        for (int score: scores){
+            netScore = netScore + score;
+        }
+        netScore = netScore/scores.size();
+
+
+
+        int userScore = 0;
+        double userTime = 0;
+
+        for (double time: listTimes){
+            userTime = userTime + time;
+        }
+        userTime = userTime/listTimes.size();
+
+        for (int score: listScores){
+            userScore = userScore + score;
+        }
+        userScore = userScore/listScores.size();
+
+        final TextView display = findViewById(R.id.textView11);
+        final TextView display2 = findViewById(R.id.textView10);
+
+
+        if (userTime<=netTime) {
+            display.setText("You're doing better than average! Please choose a harder reaction game");
+        }
+        else {
+            display.setText("Please pick an easier reaction game!");
+        }
+
+        if (userScore>netScore) {
+            display.setText("You're doing better than average! Please choose a harder memory game");
+        }
+        else {
+            display.setText("Please pick an easier memory game!");
+        }
 
     }
 
@@ -397,13 +617,13 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         String a = message.toString();
         a = a.substring(2);
         a = a.replaceAll("[\"\'\\[\\]]","");
-        lista.add(a);
-
 
 
         if (a.substring(0, 1).equals("S")) {
+            String b = a.substring(a.indexOf(" "), a.indexOf("/"));
+            listScores.add(Integer.parseInt(b));
             ParseObject parseObject = new ParseObject("LeoData");
-            parseObject.put("score", a);
+            parseObject.put("score", b);
             parseObject.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
@@ -413,6 +633,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
                     if (e == null)
                         Toast.makeText(context, text, duration).show();
                     else
+
                         Toast.makeText(context, e.getMessage(), duration).show();
                 }
             });
@@ -423,6 +644,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         }
 
         else if (a.length() < 6) {
+            listTimes.add(Double.parseDouble(a));
             ParseObject parseObject = new ParseObject("LeoData");
             parseObject.put("data", a);
             parseObject.saveInBackground(new SaveCallback() {
@@ -430,7 +652,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
                 public void done(ParseException e) {
                     Context context = getApplicationContext();
                     CharSequence text = "Saved on server successfully!";
-                    int duration = Toast.LENGTH_LONG;
+                    int duration = Toast.LENGTH_SHORT;
                     if (e == null)
                         Toast.makeText(context, text, duration).show();
                     else
@@ -442,6 +664,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         else {
             String[] tokens = a.split(",\\s");
             for (String obj:tokens) {
+                listTimes.add(Double.parseDouble(obj));
                 ParseObject parseObj = new ParseObject("LeoData");
                 parseObj.put("data", obj);
                 parseObj.saveInBackground(new SaveCallback() {
