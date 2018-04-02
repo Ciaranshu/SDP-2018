@@ -22,14 +22,16 @@ public class LongGameGraphActivity extends AppCompatActivity {
 
         String[] tokens = data.split(",\\s");
 
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(new DataPoint[]{
-                new DataPoint(1, Double.parseDouble(tokens[0])),
-                new DataPoint(2, Double.parseDouble(tokens[1])),
-                new DataPoint(3, Double.parseDouble(tokens[2])),
-                new DataPoint(4, Double.parseDouble(tokens[3])),
-                new DataPoint(5, Double.parseDouble(tokens[4]))
-        });
+        DataPoint[] points = new DataPoint[tokens.length];
+
+        for (int i=0; i<points.length; i++) {
+            points[i] = new DataPoint(i, Double.parseDouble(tokens[i]));
+        }
+
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(points);
         graph.addSeries(series);
         graph.setTitle("Time taken for individual interactions");
+        graph.getGridLabelRenderer().setHorizontalAxisTitle("Interaction number");
+        graph.getGridLabelRenderer().setVerticalAxisTitle("Time taken");
     }
 }

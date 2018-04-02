@@ -20,15 +20,16 @@
             android:id="@+id/nav_detect_face"
             android:icon="@drawable/ic_face"
             android:title="@string/nav_detectFace" />
-    </group>
 
-    <item android:title="@string/nav_title_Settings">
-        <menu>
-            <item
-                android:id="@+id/nav_setting"
-                android:icon="@drawable/ic_menu_manage"
-                android:title="@string/nav_setting" />
-        </menu>
-    </item>
+        <item
+            android:id="@+id/nav_data_analysis"
+            android:icon="@drawable/ic_analysis"
+            android:title="@string/data_analysis" />
+
+        <item
+            android:id="@+id/action_settings"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/settings" />
+    </group>
 
 </menu>
