@@ -8,7 +8,9 @@ import time
 import paho.mqtt.client as mqtt
 #from os import system as sys
 import subprocess
-from /home/pi/SDP-2018/Rpi/Communication/mqttRpi.py import lights
+import random
+import RPi.GPIO as GPIO
+import time
 
 clientEV3 = mqtt.Client()
 
@@ -23,7 +25,24 @@ flag = True
 logging.getLogger("flask_ask").setLevel(logging.DEBUG)
 print ("running")
 
-def sequence_generator(chars="012",*,size, game):
+def lights(seq):
+    GPIO.cleanup()
+    GPIO.setmode(GPIO.BOARD)
+    # pins for the + of the circuit
+    pins = [36, 22, 32]
+    # the closest grounds are [14,20,34]
+    for digit in seq:
+        num = pins[int(digit)]
+        print(num)
+        GPIO.cleanup()
+        GPIO.setmode(GPIO.BOARD)
+        GPIO.setup(num,GPIO.OUT)
+        GPIO.output(num,1)
+        time.sleep(1)
+        GPIO.output(num,0)
+        time.sleep(1)
+
+def sequence_generator(size, game,chars="012"):
     global pattern
     if ((game % 3) == 0):
         pattern += str(''.join(random.choice(chars) for _ in range(size)))
