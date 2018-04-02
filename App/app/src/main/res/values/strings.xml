@@ -33,6 +33,7 @@
     <string name="nav_reactionGame">Reaction Game</string>
     <string name="nav_detectFace">Detect Face</string>
     <string name="data_analysis">Your Analysis</string>
+    <string name="settings">Settings</string>
 
     <!--string for basic game tab-->
     <string name="btn_bg_g1">say hello</string>
@@ -67,6 +68,6 @@
     <string name="btn_fd_opt6">option 6</string>
 
     <string name="analyse_data">Analyse data</string>
-
+    <string name="detect_face">Detect Face</string>
 
 </resources>

@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String email = mEmail.getText().toString();
+                final String email = mEmail.getText().toString();
                 String username = email.substring(0, email.indexOf("@"));
                 String password = mPassword.getText().toString();
 
@@ -52,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                             int duration = Toast.LENGTH_SHORT;
                             Toast.makeText(context, text, duration).show();*/
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            intent.putExtra("email", email);
                             startActivity(intent);
                         } else {
                             Context context = getApplicationContext();

@@ -23,8 +23,13 @@
 
         <item
             android:id="@+id/nav_data_analysis"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_analysis"
             android:title="@string/data_analysis" />
+
+        <item
+            android:id="@+id/action_settings"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/settings" />
     </group>
 
 </menu>
