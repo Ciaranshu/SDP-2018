@@ -12,6 +12,7 @@ from /home/pi/SDP-2018/Rpi/Communication/mqttRpi.py import lights
 
 clientEV3 = mqtt.Client()
 
+
 GPIO.setmode(GPIO.BCM)
 
 app = Flask(__name__)
@@ -22,11 +23,20 @@ flag = True
 logging.getLogger("flask_ask").setLevel(logging.DEBUG)
 print ("running")
 
+def sequence_generator(chars="012",*,size, game):
+    global pattern
+    if ((game % 3) == 0):
+        pattern += str(''.join(random.choice(chars) for _ in range(size)))
+    elif ((game % 3) == 1):
+        pattern = str(''.join(random.choice(chars) for _ in range(size)))
+    elif ((game % 3) == 2):
+        pattern = str(''.join(random.choice(chars) for _ in range(size)))
+
 @ask.intent('SetupLeo')
 def setup():
     print ("Automatically Setup:")
     try:
-        subprocess.call("sudo -u pi python /home/pi/SDP-2018/Rpi/Communication/initialisationScript.py") 
+        subprocess.call("sudo -u pi python /home/pi/SDP-2018/Rpi/Communication/initialisationScript.py")
         return statement('Leo has set up')
     except:
         return statement('Fail to set up Leo, please try it again')
@@ -47,7 +57,7 @@ def faceDetection():
 	subprocess.call("sudo -u pi python3 /home/pi/SDP-2018/Rpi/FaceDetection/faceDetection.py")
         return statement('Leo found you')
     except:
-        return statement('Leo was fail to find you, please try it again')    
+        return statement('Leo was fail to find you, please try it again')
 
 
 @ask.intent('trick', mapping={'trick':'trick'})
@@ -61,23 +71,48 @@ def reaction_game(trick):
 
 @ask.intent('memoryGame', mapping={'mode':'mode'})
 def reaction_game(mode):
+    global pattern
     global flag
     if flag:
         clientEV3.connect("10.42.0.54", 1883, 60000)
         flag = False
     elif game == "memorize" or "memory":
         if mode == "very easy":
+            game = 2
+            sequence_generator(size=5, game=game)
+            lights(pattern)
+            clientEV3.publish("topic/ev3/dt", str("356,"+pattern))
 
         elif mode == "easy":
-            clientEV3.publish("topic/ev3/dt", "351")
+            game = 0
+            sequence_generator(size=2, game=game)
+            lights(pattern)
+            clientEV3.publish("topic/ev3/dt", str("356,"+pattern))
+
         elif mode == "normal":
-            clientEV3.publish("topic/ev3/dt", "351")
+            game = 5
+            sequence_generator(size=5, game=game)
+            lights(pattern)
+            clientEV3.publish("topic/ev3/dt", str("357,"+pattern))
+
         elif mode == "hard":
-            clientEV3.publish("topic/ev3/dt", "351")
+            game = 1
+            sequence_generator(size=2, game=game)
+            lights(pattern)
+            clientEV3.publish("topic/ev3/dt", str("356,"+pattern))
+
         elif mode == "very hard":
-            clientEV3.publish("topic/ev3/dt", "351")
+            game = 3
+            sequence_generator(size=2, game=game)
+            lights(pattern)
+            clientEV3.publish("topic/ev3/dt", str("357,"+pattern))
+
         elif mode == "prestige":
-            clientEV3.publish("topic/ev3/dt", "351")
+            game = 4
+            sequence_generator(size=2 ,game=game)
+            lights(pattern)
+            clientEV3.publish("topic/ev3/dt", str("357,"+pattern))
+
         else:
             return statement ('I do not know this game')
         return statement('Playing {} game'.format(mode))
