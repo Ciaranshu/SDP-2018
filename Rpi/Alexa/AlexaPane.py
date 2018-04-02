@@ -79,8 +79,8 @@ def faceDetection():
         return statement('Leo was fail to find you, please try it again')
 
 
-@ask.intent('trick', mapping={'trick':'trick'})
-def reaction_game(trick):
+@ask.intent('PlayAtrick', mapping={'trick':'trick'})
+def trick_game(trick):
     global flag
     if flag:
         clientEV3.connect("10.42.0.54", 1883, 60000)
@@ -89,52 +89,52 @@ def reaction_game(trick):
 	clientEV3.publish("topic/ev3/dt", "351")
 
 @ask.intent('memoryGame', mapping={'mode':'mode'})
-def reaction_game(mode):
+def memory_game(mode):
     global pattern
     global flag
     if flag:
         clientEV3.connect("10.42.0.54", 1883, 60000)
         flag = False
-    elif game == "memorize" or "memory":
-        if mode == "very easy":
-            game = 2
-            sequence_generator(size=5, game=game)
-            lights(pattern)
-            clientEV3.publish("topic/ev3/dt", str("356,"+pattern))
 
-        elif mode == "easy":
-            game = 0
-            sequence_generator(size=2, game=game)
-            lights(pattern)
-            clientEV3.publish("topic/ev3/dt", str("356,"+pattern))
+    if mode == "very easy":
+        game = 2
+        sequence_generator(size=5, game=game)
+        lights(pattern)
+        clientEV3.publish("topic/ev3/dt", str("356,"+pattern))
 
-        elif mode == "normal":
-            game = 5
-            sequence_generator(size=5, game=game)
-            lights(pattern)
-            clientEV3.publish("topic/ev3/dt", str("357,"+pattern))
+    elif mode == "easy":
+        game = 0
+        sequence_generator(size=2, game=game)
+        lights(pattern)
+        clientEV3.publish("topic/ev3/dt", str("356,"+pattern))
 
-        elif mode == "hard":
-            game = 1
-            sequence_generator(size=2, game=game)
-            lights(pattern)
-            clientEV3.publish("topic/ev3/dt", str("356,"+pattern))
+    elif mode == "normal":
+        game = 5
+        sequence_generator(size=5, game=game)
+        lights(pattern)
+        clientEV3.publish("topic/ev3/dt", str("357,"+pattern))
 
-        elif mode == "very hard":
-            game = 3
-            sequence_generator(size=2, game=game)
-            lights(pattern)
-            clientEV3.publish("topic/ev3/dt", str("357,"+pattern))
+    elif mode == "hard":
+        game = 1
+        sequence_generator(size=2, game=game)
+        lights(pattern)
+        clientEV3.publish("topic/ev3/dt", str("356,"+pattern))
 
-        elif mode == "prestige":
-            game = 4
-            sequence_generator(size=2 ,game=game)
-            lights(pattern)
-            clientEV3.publish("topic/ev3/dt", str("357,"+pattern))
+    elif mode == "very hard":
+        game = 3
+        sequence_generator(size=2, game=game)
+        lights(pattern)
+        clientEV3.publish("topic/ev3/dt", str("357,"+pattern))
 
-        else:
-            return statement ('I do not know this game')
-        return statement('Playing {} game'.format(mode))
+    elif mode == "prestige":
+        game = 4
+        sequence_generator(size=2 ,game=game)
+        lights(pattern)
+        clientEV3.publish("topic/ev3/dt", str("357,"+pattern))
+
+    else:
+        return statement ('I do not know this game')
+    return statement('Playing {} memory game'.format(mode))
 
 @ask.intent('reactionGame', mapping={'game': 'game', 'num': 'num'})
 def reaction_game(game, num):
