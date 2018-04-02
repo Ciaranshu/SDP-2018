@@ -1,0 +1,26 @@
+Traceback (most recent call last):
+  File "/home/pi/SDP-2018/Rpi/FaceDetection/faceDetection.py", line 64, in <module>
+    sleep(0.25)
+KeyboardInterrupt
+Corrupt JPEG data: 1 extraneous bytes before marker 0xd0
+OpenCV Error: Assertion failed (!empty()) in detectMultiScale, file /home/yyoo/src/opencv-3.3.0/modules/objdetect/src/cascadedetect.cpp, line 1698
+Traceback (most recent call last):
+  File "/home/pi/SDP-2018/Rpi/FaceDetection/faceDetection.py", line 73, in <module>
+    faces = face_cascade.detectMultiScale(gray, 1.3, 3)
+cv2.error: /home/yyoo/src/opencv-3.3.0/modules/objdetect/src/cascadedetect.cpp:1698: error: (-215) !empty() in function detectMultiScale
+
+Traceback (most recent call last):
+  File "/home/pi/SDP-2018/Rpi/FaceDetection/faceDetection.py", line 64, in <module>
+    sleep(0.25)
+KeyboardInterrupt
+Corrupt JPEG data: 1 extraneous bytes before marker 0xd4
+OpenCV Error: Assertion failed (!empty()) in detectMultiScale, file /home/yyoo/src/opencv-3.3.0/modules/objdetect/src/cascadedetect.cpp, line 1698
+Traceback (most recent call last):
+  File "/home/pi/SDP-2018/Rpi/FaceDetection/faceDetection.py", line 73, in <module>
+    faces = face_cascade.detectMultiScale(gray, 1.3, 3)
+cv2.error: /home/yyoo/src/opencv-3.3.0/modules/objdetect/src/cascadedetect.cpp:1698: error: (-215) !empty() in function detectMultiScale
+
+Traceback (most recent call last):
+  File "/home/pi/SDP-2018/Rpi/FaceDetection/faceDetection.py", line 64, in <module>
+    sleep(0.25)
+KeyboardInterrupt
