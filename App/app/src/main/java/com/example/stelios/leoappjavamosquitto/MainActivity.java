@@ -79,6 +79,11 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
     private MqttMessage msg10;
     private MqttMessage msg11;
     private MqttMessage msg12;
+    private MqttMessage msg13;
+    private MqttMessage msg14;
+    private MqttMessage msg15;
+    private MqttMessage msg16;
+    private MqttMessage msg17;
     private MqttMessage msgCancel;
     private ArrayList<Double> listTimes;
     private ArrayList<Double> times;
@@ -87,7 +92,9 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
     private List<ParseObject> objTimes;
     private List<ParseObject> objScores;
     private StringBuilder sb;
+    private FloatingActionButton fab;
     private MqttConnectOptions timeOut;
+    private String email;
     private int netScore;
     private boolean flag;
 
@@ -113,23 +120,8 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         //setSupportActionBar(toolbar)
 
 
-        final String email = (String)getIntent().getSerializableExtra("email");
+        email = (String)getIntent().getSerializableExtra("email");
 
-        if (listTimes != null) {
-            sb.append("Reaction Times: \t");
-            for (Double s : listTimes) {
-                sb.append(s.toString());
-            }
-            sb.append("\n");
-        }
-
-        if (listScores != null) {
-            sb.append("Scores: \t");
-            for (Integer s : listScores) {
-                sb.append(s.toString());
-            }
-            sb.append("\n");
-        }
 
         // Viewpager code
         viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -181,31 +173,11 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         viewPager.setAdapter(pagerAdapter);
 
 
-
-
         // end of viewpager
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-                emailIntent.setData(Uri.parse("mailto:" + email));
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "User data for" + " " + email.substring(0, email.indexOf("@")));
-                emailIntent.putExtra(Intent.EXTRA_TEXT, "Please find the data in this email for the client \n" + sb.toString());
-
-                try {
-                    startActivity(Intent.createChooser(emailIntent, "Send email with"));
-                    Snackbar.make(view, "Sent patient information", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                } catch (android.content.ActivityNotFoundException ex) {
-                    Toast.makeText(MainActivity.this, "Email is nto verified!", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(handleClick);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -304,6 +276,47 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         return true;
     }
 
+    private View.OnClickListener handleClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+            sb = new StringBuilder();
+
+            sb.append("Reaction Times: \t");
+
+            if (listTimes != null) {
+                for (Double s : listTimes) {
+                    sb.append(s.toString() + "s" + "\t");
+                }
+            }
+
+            sb.append("\n");
+
+            sb.append("Scores: \t");
+
+            if (listScores != null) {
+                for (Integer s : listScores) {
+                    sb.append(s.toString() + " " + "points" + "\t");
+                }
+            }
+
+            sb.append("\n");
+
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+            emailIntent.setData(Uri.parse("mailto:" + email));
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "User data for" + " " + email.substring(0, email.indexOf("@")));
+            emailIntent.putExtra(Intent.EXTRA_TEXT, "Please find the data in this email for the client \n" + sb.toString());
+
+            try {
+                startActivity(Intent.createChooser(emailIntent, "Send email with"));
+                Snackbar.make(view, "Sent patient information", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            } catch (android.content.ActivityNotFoundException ex) {
+                Toast.makeText(MainActivity.this, "Email is nto verified!", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
+
     public void createConnection() {
 
         // Setting timeout Interval for connection
@@ -383,6 +396,32 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
             String stringMsg12 = new String ("12");
             byte[] b12 = stringMsg12.getBytes();
             msg12 = new MqttMessage(b12);
+
+            // Wiggle Hand
+            String stringMsg13 = new String ("13");
+            byte[] b13 = stringMsg13.getBytes();
+            msg13 = new MqttMessage(b13);
+
+            // Move Forward
+            String stringMsg14 = new String ("14");
+            byte[] b14 = stringMsg14.getBytes();
+            msg14 = new MqttMessage(b14);
+
+            // Move Backward
+            String stringMsg15 = new String ("15");
+            byte[] b15 = stringMsg15.getBytes();
+            msg15 = new MqttMessage(b15);
+
+            // Turn Around
+            String stringMsg16 = new String ("16");
+            byte[] b16 = stringMsg16.getBytes();
+            msg16 = new MqttMessage(b16);
+
+            // Move Forward
+            String stringMsg17 = new String ("17");
+            byte[] b17 = stringMsg17.getBytes();
+            msg17 = new MqttMessage(b17);
+
 
             String stringMsgc = new String ("-1");
             byte[] bc = stringMsgc.getBytes();
@@ -529,6 +568,56 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
     public void MemoryVeryHard(View view) {
         try {
             client.publish("topic/rpi/dt",msg12);
+        } catch (MqttPersistenceException e) {
+            e.printStackTrace();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void WiggleHand(View view) {
+        try {
+            client.publish("topic/rpi/dt",msg13);
+        } catch (MqttPersistenceException e) {
+            e.printStackTrace();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void MoveForward(View view) {
+        try {
+            client.publish("topic/rpi/dt",msg14);
+        } catch (MqttPersistenceException e) {
+            e.printStackTrace();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void MoveBackward(View view) {
+        try {
+            client.publish("topic/rpi/dt",msg15);
+        } catch (MqttPersistenceException e) {
+            e.printStackTrace();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void TurnAround(View view) {
+        try {
+            client.publish("topic/rpi/dt",msg16);
+        } catch (MqttPersistenceException e) {
+            e.printStackTrace();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void Spin(View view) {
+        try {
+            client.publish("topic/rpi/dt",msg17);
         } catch (MqttPersistenceException e) {
             e.printStackTrace();
         } catch (MqttException e) {
