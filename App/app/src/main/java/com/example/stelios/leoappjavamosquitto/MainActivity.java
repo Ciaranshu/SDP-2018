@@ -87,7 +87,9 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
     private List<ParseObject> objTimes;
     private List<ParseObject> objScores;
     private StringBuilder sb;
+    private FloatingActionButton fab;
     private MqttConnectOptions timeOut;
+    private String email;
     private int netScore;
     private boolean flag;
 
@@ -113,23 +115,8 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         //setSupportActionBar(toolbar)
 
 
-        final String email = (String)getIntent().getSerializableExtra("email");
+        email = (String)getIntent().getSerializableExtra("email");
 
-        if (listTimes != null) {
-            sb.append("Reaction Times: \t");
-            for (Double s : listTimes) {
-                sb.append(s.toString());
-            }
-            sb.append("\n");
-        }
-
-        if (listScores != null) {
-            sb.append("Scores: \t");
-            for (Integer s : listScores) {
-                sb.append(s.toString());
-            }
-            sb.append("\n");
-        }
 
         // Viewpager code
         viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -181,31 +168,11 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         viewPager.setAdapter(pagerAdapter);
 
 
-
-
         // end of viewpager
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-                emailIntent.setData(Uri.parse("mailto:" + email));
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "User data for" + " " + email.substring(0, email.indexOf("@")));
-                emailIntent.putExtra(Intent.EXTRA_TEXT, "Please find the data in this email for the client \n" + sb.toString());
-
-                try {
-                    startActivity(Intent.createChooser(emailIntent, "Send email with"));
-                    Snackbar.make(view, "Sent patient information", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                } catch (android.content.ActivityNotFoundException ex) {
-                    Toast.makeText(MainActivity.this, "Email is nto verified!", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(handleClick);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -303,6 +270,47 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private View.OnClickListener handleClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+            sb = new StringBuilder();
+
+            sb.append("Reaction Times: \t");
+
+            if (listTimes != null) {
+                for (Double s : listTimes) {
+                    sb.append(s.toString() + "s" + "\t");
+                }
+            }
+
+            sb.append("\n");
+
+            sb.append("Scores: \t");
+
+            if (listScores != null) {
+                for (Integer s : listScores) {
+                    sb.append(s.toString() + " " + "points" + "\t");
+                }
+            }
+
+            sb.append("\n");
+
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+            emailIntent.setData(Uri.parse("mailto:" + email));
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "User data for" + " " + email.substring(0, email.indexOf("@")));
+            emailIntent.putExtra(Intent.EXTRA_TEXT, "Please find the data in this email for the client \n" + sb.toString());
+
+            try {
+                startActivity(Intent.createChooser(emailIntent, "Send email with"));
+                Snackbar.make(view, "Sent patient information", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            } catch (android.content.ActivityNotFoundException ex) {
+                Toast.makeText(MainActivity.this, "Email is nto verified!", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
 
     public void createConnection() {
 
