@@ -79,6 +79,11 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
     private MqttMessage msg10;
     private MqttMessage msg11;
     private MqttMessage msg12;
+    private MqttMessage msg13;
+    private MqttMessage msg14;
+    private MqttMessage msg15;
+    private MqttMessage msg16;
+    private MqttMessage msg17;
     private MqttMessage msgCancel;
     private ArrayList<Double> listTimes;
     private ArrayList<Double> times;
@@ -392,6 +397,32 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
             byte[] b12 = stringMsg12.getBytes();
             msg12 = new MqttMessage(b12);
 
+            // Wiggle Hand
+            String stringMsg13 = new String ("13");
+            byte[] b13 = stringMsg13.getBytes();
+            msg13 = new MqttMessage(b13);
+
+            // Move Forward
+            String stringMsg14 = new String ("14");
+            byte[] b14 = stringMsg14.getBytes();
+            msg14 = new MqttMessage(b14);
+
+            // Move Backward
+            String stringMsg15 = new String ("15");
+            byte[] b15 = stringMsg15.getBytes();
+            msg15 = new MqttMessage(b15);
+
+            // Turn Around
+            String stringMsg16 = new String ("16");
+            byte[] b16 = stringMsg16.getBytes();
+            msg16 = new MqttMessage(b16);
+
+            // Move Forward
+            String stringMsg17 = new String ("17");
+            byte[] b17 = stringMsg17.getBytes();
+            msg17 = new MqttMessage(b17);
+
+
             String stringMsgc = new String ("-1");
             byte[] bc = stringMsgc.getBytes();
             msgCancel = new MqttMessage(bc);
@@ -537,6 +568,56 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
     public void MemoryVeryHard(View view) {
         try {
             client.publish("topic/rpi/dt",msg12);
+        } catch (MqttPersistenceException e) {
+            e.printStackTrace();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void WiggleHand(View view) {
+        try {
+            client.publish("topic/rpi/dt",msg13);
+        } catch (MqttPersistenceException e) {
+            e.printStackTrace();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void MoveForward(View view) {
+        try {
+            client.publish("topic/rpi/dt",msg14);
+        } catch (MqttPersistenceException e) {
+            e.printStackTrace();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void MoveBackward(View view) {
+        try {
+            client.publish("topic/rpi/dt",msg15);
+        } catch (MqttPersistenceException e) {
+            e.printStackTrace();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void TurnAround(View view) {
+        try {
+            client.publish("topic/rpi/dt",msg16);
+        } catch (MqttPersistenceException e) {
+            e.printStackTrace();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void Spin(View view) {
+        try {
+            client.publish("topic/rpi/dt",msg17);
         } catch (MqttPersistenceException e) {
             e.printStackTrace();
         } catch (MqttException e) {
