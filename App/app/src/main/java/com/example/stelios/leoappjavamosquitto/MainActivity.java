@@ -1,64 +1,45 @@
 package com.example.stelios.leoappjavamosquitto;
 
-
-import android.app.Activity;
 import android.net.Uri;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.bluetooth.BluetoothServerSocket;
-import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Message;
-import android.os.ParcelUuid;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
-import java.util.UUID;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.google.android.things.userdriver.UserSensor;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseUser;
 import com.parse.ParseInstallation;
 import com.parse.SaveCallback;
-
-import okhttp3.internal.Util;
 
 public class MainActivity extends AppCompatActivity implements org.eclipse.paho.client.mqttv3.MqttCallback, NavigationView.OnNavigationItemSelectedListener {
 
@@ -95,11 +76,13 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
     private FloatingActionButton fab;
     private MqttConnectOptions timeOut;
     private String email;
+    private EditText em;
+    private TextView user, sc;
     private int netScore;
     private boolean flag;
 
     // viewpager code
-    private View view1, view2, view3, view4, view5;
+    private View view1, view2, view3, view4, view5, view6;
     private ViewPager viewPager;
     private List<View> viewList;
 
@@ -131,6 +114,10 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         view3 = inflater.inflate(R.layout.reaction_game_layout,null);
         view4 = inflater.inflate(R.layout.face_detection_layout,null);
         view5 = inflater.inflate(R.layout.data_analysis, null);
+        view6 = inflater.inflate(R.layout.settings, null);
+        em = (EditText) view6.findViewById(R.id.em);
+        user = (TextView) view6.findViewById(R.id.user);
+        sc = (TextView) view6.findViewById(R.id.sco);
 
         viewList = new ArrayList<View>();
         viewList.add(view1);
@@ -138,6 +125,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         viewList.add(view3);
         viewList.add(view4);
         viewList.add(view5);
+        viewList.add(view6);
 
 
         PagerAdapter pagerAdapter = new PagerAdapter() {
@@ -268,7 +256,36 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
 
         } else if (id == R.id.nav_data_analysis) {
             viewPager.setCurrentItem(4, true);
+        }
+        else if (id == R.id.action_settings) {
+            viewPager.setCurrentItem(5, true);
+            em.setText("Email: " + email);
+            user.setText("Username: " + email.substring(0, email.indexOf("@")));
 
+            int userScore = 0;
+            double userTime = 0;
+
+            if (listTimes.size() !=0) {
+                for (double time : listTimes) {
+                    userTime = userTime + time;
+                }
+                userTime = userTime / listTimes.size();
+            }
+
+            if (listScores.size() !=0) {
+                for (int score : listScores) {
+                    userScore = userScore + score;
+                }
+                userScore = userScore / listScores.size();
+            }
+
+            int finalScore = 0;
+
+            if(userTime != 0 && userScore !=0) {
+                finalScore = (int) Math.round(userScore/userTime);
+            }
+
+            sc.setText("Score: " + finalScore);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -281,7 +298,6 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         public void onClick(View view) {
 
             sb = new StringBuilder();
-
             sb.append("Reaction Times: \t");
 
             if (listTimes != null) {
@@ -301,6 +317,8 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
             }
 
             sb.append("\n");
+
+            String email = em.getText().toString();
 
             Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
             emailIntent.setData(Uri.parse("mailto:" + email));
@@ -719,14 +737,14 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         final TextView display2 = findViewById(R.id.textView10);
 
         if (userTime<=netTime) {
-            display.setText("You're doing better than average! Please choose a harder reaction game");
+            display.setText("Please choose a harder reaction game!");
         }
         else {
             display.setText("Please pick an easier reaction game!");
         }
 
         if (userScore>netScore) {
-            display2.setText("You're doing better than average! Please choose a harder memory game");
+            display2.setText("Please choose a harder memory game!");
         }
         else {
             display2.setText("Please pick an easier memory game!");
@@ -756,6 +774,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
 
         if (a.substring(0, 1).equals("S")) {
             String b = a.substring(a.indexOf(" "), a.indexOf("/"));
+            b = b.trim();
             listScores.add(Integer.parseInt(b));
             ParseObject parseObject = new ParseObject("LeoData");
             parseObject.put("score", b);

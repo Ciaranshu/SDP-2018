@@ -70,4 +70,7 @@
     <string name="analyse_data">Analyse data</string>
     <string name="detect_face">Detect Face</string>
 
+    <!--String for settings tab-->
+    <string name="settings_top">User Settings</string>
+
 </resources>
