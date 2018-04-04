@@ -773,7 +773,7 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
 
 
         if (a.substring(0, 1).equals("S")) {
-            String b = a.substring(a.indexOf(" "), a.indexOf("/"));
+            String b = a.substring(a.indexOf(" "));
             b = b.trim();
             listScores.add(Integer.parseInt(b));
             ParseObject parseObject = new ParseObject("LeoData");
