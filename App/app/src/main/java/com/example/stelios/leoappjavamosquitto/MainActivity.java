@@ -119,6 +119,36 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         user = (TextView) view6.findViewById(R.id.user);
         sc = (TextView) view6.findViewById(R.id.sco);
 
+        em.setText("Email: " + email);
+        user.setText("Username: " + email.substring(0, email.indexOf("@")));
+
+        //Creating settings activity
+        int userScore = 0;
+        double userTime = 0;
+
+        if (listTimes.size() !=0) {
+            for (double time : listTimes) {
+                userTime = userTime + time;
+            }
+            userTime = userTime / listTimes.size();
+        }
+
+        if (listScores.size() !=0) {
+            for (int score : listScores) {
+                userScore = userScore + score;
+            }
+            userScore = userScore / listScores.size();
+        }
+
+        int finalScore = 0;
+
+        if(userTime != 0 && userScore !=0) {
+            finalScore = (int) Math.round(userScore/userTime);
+        }
+
+        sc.setText("Score: " + finalScore);
+
+
         viewList = new ArrayList<View>();
         viewList.add(view1);
         viewList.add(view2);
@@ -259,33 +289,6 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         }
         else if (id == R.id.action_settings) {
             viewPager.setCurrentItem(5, true);
-            em.setText("Email: " + email);
-            user.setText("Username: " + email.substring(0, email.indexOf("@")));
-
-            int userScore = 0;
-            double userTime = 0;
-
-            if (listTimes.size() !=0) {
-                for (double time : listTimes) {
-                    userTime = userTime + time;
-                }
-                userTime = userTime / listTimes.size();
-            }
-
-            if (listScores.size() !=0) {
-                for (int score : listScores) {
-                    userScore = userScore + score;
-                }
-                userScore = userScore / listScores.size();
-            }
-
-            int finalScore = 0;
-
-            if(userTime != 0 && userScore !=0) {
-                finalScore = (int) Math.round(userScore/userTime);
-            }
-
-            sc.setText("Score: " + finalScore);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -318,8 +321,10 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
 
             sb.append("\n");
 
-            String email = em.getText().toString();
-
+            if (em.getText() != null) {
+                email = em.getText().toString();
+            }
+            Log.d("WHATT", email);
             Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
             emailIntent.setData(Uri.parse("mailto:" + email));
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, "User data for" + " " + email.substring(0, email.indexOf("@")));
