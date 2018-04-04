@@ -122,32 +122,6 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         em.setText("Email: " + email);
         user.setText("Username: " + email.substring(0, email.indexOf("@")));
 
-        //Creating settings activity
-        int userScore = 0;
-        double userTime = 0;
-
-        if (listTimes.size() !=0) {
-            for (double time : listTimes) {
-                userTime = userTime + time;
-            }
-            userTime = userTime / listTimes.size();
-        }
-
-        if (listScores.size() !=0) {
-            for (int score : listScores) {
-                userScore = userScore + score;
-            }
-            userScore = userScore / listScores.size();
-        }
-
-        int finalScore = 0;
-
-        if(userTime != 0 && userScore !=0) {
-            finalScore = (int) Math.round(userScore/userTime);
-        }
-
-        sc.setText("Score: " + finalScore);
-
 
         viewList = new ArrayList<View>();
         viewList.add(view1);
@@ -289,6 +263,33 @@ public class MainActivity extends AppCompatActivity implements org.eclipse.paho.
         }
         else if (id == R.id.action_settings) {
             viewPager.setCurrentItem(5, true);
+
+            //Creating settings activity
+            int userScore = 0;
+            double userTime = 0;
+
+            if (listTimes.size() !=0) {
+                for (double time : listTimes) {
+                    userTime = userTime + time;
+                }
+                userTime = userTime / listTimes.size();
+            }
+
+            if (listScores.size() !=0) {
+                for (int score : listScores) {
+                    userScore = userScore + score;
+                }
+                userScore = userScore / listScores.size();
+            }
+
+            int finalScore = 0;
+
+            if(userTime != 0 && userScore !=0) {
+                finalScore = (int) Math.round(userScore/userTime);
+            }
+
+            Log.d("What", String.valueOf(finalScore));
+            sc.setText("Score: " + finalScore);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
