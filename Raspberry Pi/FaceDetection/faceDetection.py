@@ -48,7 +48,7 @@ moveforward_flag = 0;
 moveleft_flag = 0;
 moveright_flag = 0;
 no_face_timer = 0
-face_in_place_stabiliser = 5
+face_in_place_stabiliser = 10;
 
 # Detect the borders
 """def FaceBorder(face_centre):
@@ -85,7 +85,7 @@ while True:
         if(biggestFace == 0):
 
             # Reset all flags
-            face_in_place_stabiliser = 5
+            face_in_place_stabiliser = 10
             moveback_flag = 0
             moveforward_flag = 0
             moveleft_flag = 0
@@ -113,14 +113,12 @@ while True:
             # print("centre_h is: %i" %centre_h)
 
             no_face_timer = 0
-            turn_left = False
-            turn_right = False
 
             # check if face is out of the border
             if(centre_h > face_max):
                 # move robot back when the user is too close (note: change to threadg)
                 moveback_flag+=1
-                face_in_place_stabiliser = 5
+                face_in_place_stabiliser = 10
                 if(moveback_flag > timer):
                     print("face too big")
                     client.publish("topic/motor-A/dt", "0");
@@ -134,7 +132,8 @@ while True:
             elif(centre_h < face_min):
                 # move robot forward when the user is too far (note: change to thread)
                 moveforward_flag+=1
-                face_in_place_stabiliser = 5
+                face_in_place_stabiliser = 10
+                face_in_place_stabiliser-=1
                 if(moveforward_flag > timer):
                     print("face too small")
                     client.publish("topic/motor-A/dt", "1");
@@ -152,7 +151,7 @@ while True:
                     turn_left = True
                     turn_right = False
                     moveleft_flag+=1
-                    face_in_place_stabiliser = 5
+                    face_in_place_stabiliser = 10
                     if(moveleft_flag > timer):
                         print("out of left border")
                         client.publish("topic/motor-A/dt", "3");
@@ -168,7 +167,7 @@ while True:
                     turn_right = True
                     turn_left = False
                     moveright_flag+=1
-                    face_in_place_stabiliser = 5
+                    face_in_place_stabiliser = 10
                     if(moveright_flag > timer):
                         print("out of right border")
                         client.publish("topic/motor-A/dt", "2");
@@ -185,6 +184,8 @@ while True:
                     face_in_place_stabiliser-=1
 
                     # reset turing and all the flags
+                    turn_left = False
+                    turn_right = False
                     moveback_flag = 0
                     moveforward_flag = 0
                     moveleft_flag = 0
