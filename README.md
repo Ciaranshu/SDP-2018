@@ -10,3 +10,5 @@ Actuators - 6 motors for arms and legs, LEDs, Speakers.
 Features good to have - Table awareness, facing the user, speech recognition.
 
 Changes
+
+Group Members - Ciaran Shu, Jason Yin, Vlad Iordan, Agnibho Chattarji, Akshay Chandiramani, Stelios Nicoletti, Thomas Kozlowksi
